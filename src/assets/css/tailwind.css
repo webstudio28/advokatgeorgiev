@@ -100,7 +100,7 @@
 
     /* Generic brand buttons (data-driven via CSS variables) */
     .btn-brand {
-        @apply inline-flex items-center justify-center rounded-md bg-brand-accent text-neutral-900 font-semibold px-4 py-2 shadow-sm hover:shadow-md transition;
+        @apply inline-flex items-center justify-center rounded-xl bg-brand-secondary text-neutral-900 font-semibold px-4 py-2 shadow-sm hover:shadow-md transition;
     }
 
     .btn-brand-dark {
@@ -121,7 +121,7 @@
     }
 
     .card-dark {
-        @apply rounded-lg bg-neutral-700/40 border border-white/10;
+        @apply rounded-xl bg-neutral-600/30 ;
     }
       
     .btn-secondary {

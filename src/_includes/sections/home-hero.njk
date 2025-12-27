@@ -15,47 +15,33 @@
 
          <h1 class="t-hero-title leading-[0.7]">
             <span class="text-white text-5xl md:text-6xl font-extrabold tracking-wide">{{ home.hero.prefix }}</span><br>
-            <span class="text-brand-secondary text-5xl md:text-6xl font-semibold tracking-wide">{{ site.brand.name }}</span>
+            <span class="text-brand-secondary text-5xl md:text-6xl font-bold tracking-wide">{{ site.brand.name }}</span>
           </h1>
 
         <p class="t-hero-subtitle md:text-base max-w-xl">
           {{ site.seo.defaultDescription }}
         </p>
 
-        <div class="card-dark p-4">
-          <div class="grid gap-2 text-xs md:text-sm text-neutral-200/90">
-            {% if site.contact.phones and site.contact.phones[0] %}
-              <a class="flex items-start gap-2 underline underline-offset-2" href="tel:{{ site.contact.phones[0].tel }}">
-                <img src="{{ '/assets/images/telephone.png' | url }}" alt="Телефон" class="mt-0.5 h-4 w-4 object-contain">
-                <span>{{ site.contact.phones[0].display | default(site.contact.phones[0].tel) }}</span>
-              </a>
-            {% endif %}
-
-            {% if site.contact.email and site.contact.email.mailto %}
-              <a class="flex items-start gap-2 underline underline-offset-2" href="mailto:{{ site.contact.email.mailto }}">
-                <img src="{{ '/assets/images/email.png' | url }}" alt="Имейл" class="mt-0.5 h-4 w-4 object-contain">
-                <span>{{ site.contact.email.display | default(site.contact.email.mailto) }}</span>
-              </a>
-            {% endif %}
-
-            {% if site.contact.address %}
-              <div class="flex items-start gap-2">
-                <img src="{{ '/assets/images/gps.png' | url }}" alt="Адрес" class="mt-0.5 h-4 w-4 object-contain">
-                <span>{{ site.contact.address }}</span>
-              </div>
-            {% endif %}
-
-            {% if site.contact.officeHours %}
-              <div class="flex items-start gap-2">
-                <img src="{{ '/assets/images/working-time.png' | url }}" alt="Работно време" class="mt-0.5 h-4 w-4 object-contain">
-                <span>{{ site.contact.officeHours }}</span>
-              </div>
-            {% endif %}
+        <div class="card-dark p-4 ">
+          <div class="grid gap-2 text-lg md:text-sm text-brand-accent">
+            {% for item in home.hero.contactItems %}
+              {% if item.isLink %}
+                <a class="flex items-start gap-2 underline underline-offset-2" href="{{ item.href }}">
+                  <img src="{{ item.icon | url }}" alt="{{ item.iconAlt }}" class="mt-0.5 h-4 w-4 object-contain">
+                  <span>{{ item.text }}</span>
+                </a>
+              {% else %}
+                <div class="flex items-start gap-2">
+                  <img src="{{ item.icon | url }}" alt="{{ item.iconAlt }}" class="mt-0.5 h-4 w-4 object-contain">
+                  <span>{{ item.text }}</span>
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
 
-        <div class="pt-2">
-          <a href="{{ home.hero.ctaUrl | url }}" class="btn-brand">
+        <div class="">
+          <a href="{{ home.hero.ctaUrl | url }}" class="btn-brand w-full">
             {{ home.hero.ctaLabel }}
           </a>
         </div>
@@ -71,8 +57,8 @@
   </div>
 
   {# Image positioned absolutely relative to hero section (desktop only) #}
-  <div class="hidden md:block absolute bottom-0 left-auto translate-x-0 right-[max(1rem,calc((100%-1280px)/2))] w- overflow-hidden  z-10">
-    <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="w-full object-cover object-bottom">
+  <div class="hidden md:block absolute bottom-0 left-auto translate-x-0 right-[max(1rem,calc((100%-1280px)/2))] h-[50vh] lg:h-[80vh] w-auto overflow-hidden z-10">
+    <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="h-full w-auto object-cover object-bottom">
   </div>
 </section>
 

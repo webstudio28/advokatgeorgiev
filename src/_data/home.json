@@ -7,7 +7,39 @@
     "portrait": {
       "src": "https://placehold.co/540x675",
       "alt": "Портрет"
-    }
+    },
+    "contactItems": [
+      {
+        "type": "phone",
+        "icon": "/assets/images/telephone.png",
+        "iconAlt": "Телефон",
+        "text": "0890100638",
+        "href": "tel:+359890100638",
+        "isLink": true
+      },
+      {
+        "type": "email",
+        "icon": "/assets/images/email.png",
+        "iconAlt": "Имейл",
+        "text": "info@georgiev.com",
+        "href": "mailto:info@georgiev.com",
+        "isLink": true
+      },
+      {
+        "type": "address",
+        "icon": "/assets/images/gps.png",
+        "iconAlt": "Адрес",
+        "text": "България, Гр. София, Алабин 42, ет. 3, оф. 10",
+        "isLink": false
+      },
+      {
+        "type": "officeHours",
+        "icon": "/assets/images/working-time.png",
+        "iconAlt": "Работно време",
+        "text": "Пон–пет: 09:00–17:00ч. • събота/неделя: затворено",
+        "isLink": false
+      }
+    ]
   },
   "about": {
     "eyebrow": "За мен",
