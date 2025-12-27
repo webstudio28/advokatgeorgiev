@@ -44,6 +44,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Merriweather Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Merriweather"', 'ui-serif', 'Georgia', 'serif'],
+        accent: ['"Sansation"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       colors: {
         brand: {
           primary: 'var(--color-brand-primary)',

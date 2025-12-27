@@ -13,9 +13,9 @@
         <!-- Brand Colors (data-driven) -->
         <style>
             :root {
-                --color-brand-primary: {{ site.colors.primary | default('#25425E') }};
-                --color-brand-secondary: {{ site.colors.secondary | default('#4A6B8A') }};
-                --color-brand-accent: {{ site.colors.accent | default('#C8E6C9') }};
+                --color-brand-primary: {{ site.colors.primary | default('#2A2A2A') }};
+                --color-brand-secondary: {{ site.colors.secondary | default('#DEAD79') }};
+                --color-brand-accent: {{ site.colors.accent | default('#DDDDDD') }};
             }
         </style>
 
@@ -24,9 +24,7 @@
         <link rel="canonical" href="{{ site.seo.siteUrl }}{{ page.url | url }}">
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+        {# Fonts are loaded locally via @font-face in src/assets/css/tailwind.css #}
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url }}">
@@ -51,7 +49,8 @@
         <!-- Alternative: use summary card with square image -->
         <!-- <meta name="twitter:card" content="summary"/> -->
         <!-- <meta name="twitter:image" content="{{ site.seo.siteUrl }}{{ '/assets/images/socials-square.png' | url }}"/> -->
-
+        
+        
         <script>
             // Mobile menu toggle (simple)
             document.addEventListener('DOMContentLoaded', function () {
@@ -89,37 +88,40 @@
             });
         </script>
 
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <script src="https://cdn.tailwindcss.com"></script>
+
+
+        
 
 
 
     </head>
-    <body class="bg-neutral-900 text-neutral-100 font-['Montserrat']">
+    <body class="bg-neutral-900 text-neutral-100 font-sans">
         <!-- Header -->
         <header class="fixed top-0 left-0 right-0 z-50 header-custom">
-            <div class="container-custom h-12 flex items-center gap-3">
+            <div class="container-custom flex items-center justify-between gap-3 p-4 min-h-16">
                 <a href="{{ '/' | url }}" class="flex items-center gap-2">
-                    <img src="{{ site.brand.logo.header | url }}" alt="{{ site.brand.logo.alt | default(site.brand.name) }}" class="h-6 w-6 object-contain">
-                    <div class="text-brand-accent text-xs font-medium leading-[0.95] font-['Source_Serif_4']">
+                    <img src="{{ site.brand.logo.header | url }}" alt="{{ site.brand.logo.alt | default(site.brand.name) }}" class="h-14 w-14 object-contain">
+                    <div class="text-brand-secondary text-xl font-medium font-serif leading-[0.95]">
                         {{ site.brand.name | replace(' ', '<br/>') | safe }}
                     </div>
                 </a>
 
                 <nav class="hidden md:flex ml-6">
-                    <ul class="flex items-center gap-5 text-xs text-neutral-200/90">
+                    <ul class="flex items-center gap-8 text-md color-brand-accent">
                         {% if site.navigation %}
                             {% for item in site.navigation %}
                                 <li>
-                                    <a href="{{ item.url | url }}" class="hover:text-white transition">{{ item.label }}</a>
+                                    <a href="{{ item.url | url }}" class="font-normal text-brand-accent hover:text-white transition">{{ item.label }}</a>
                                 </li>
                             {% endfor %}
                         {% endif %}
                     </ul>
                 </nav>
 
-                <div class="ml-auto flex items-center gap-2">
+                <div class=" flex items-center gap-2">
                     {% if site.headerCta %}
-                        <a href="{{ site.headerCta.url | url }}" class="btn-brand hidden md:inline-flex text-xs px-3 py-1.5 rounded">
+                        <a href="{{ site.headerCta.url | url }}" class="btn-brand bg-brand-secondary text-brand-primary hidden md:inline-flex text-sm font-medium px-8 py-1.5 rounded-xl">
                             {{ site.headerCta.label }}
                         </a>
                     {% endif %}
@@ -138,7 +140,7 @@
         <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200">
             <div class="absolute right-0 top-0 h-full w-full max-w-sm bg-neutral-900 border-l border-white/10 p-6">
                 <div class="flex items-center justify-between">
-                    <div class="text-brand-accent text-sm font-medium font-['Source_Serif_4'] leading-none">
+                    <div class="text-brand-secondary text-sm font-medium leading-none">
                         {{ site.brand.name | replace(' ', '<br/>') | safe }}
                     </div>
                     <button id="mobile-menu-close" class="inline-flex h-9 w-9 items-center justify-center rounded bg-white/5 border border-white/10">
@@ -152,7 +154,7 @@
                 <nav class="mt-8 flex flex-col gap-2 text-base">
                     {% if site.navigation %}
                         {% for item in site.navigation %}
-                            <a href="{{ item.url | url }}" class="rounded-lg border border-white/10 px-4 py-3 hover:bg-white/5 transition">
+                            <a href="{{ item.url | url }}" class="text-brand-accent rounded-lg border border-white/10 px-4 py-3 hover:bg-white/5 transition">
                                 {{ item.label }}
                             </a>
                         {% endfor %}
@@ -192,7 +194,7 @@
             <div class="container-custom py-10">
                 <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
                     <div>
-                        <div class="text-brand-accent text-sm font-medium font-['Source_Serif_4'] leading-none">
+                        <div class="text-brand-secondary text-sm font-medium leading-none">
                             {{ site.brand.name | replace(' ', '<br/>') | safe }}
                         </div>
                         {% if site.footer and site.footer.about %}
