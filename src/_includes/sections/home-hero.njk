@@ -7,47 +7,47 @@
   <div class="absolute inset-0 bg-gradient-to-r from-[#121212]/70 to-[#131313]/100"></div>
 
   <div class="relative container-custom w-full flex items-center py-10 z-1000">
-    <div class="w-full flex flex-col md:flex-row gap-8 md:items-center border-2 border-blue-500">
-      <div class="space-y-4  w-full sm:w-[50%] border-2 border-red-500">
+    <div class="w-full flex flex-col md:flex-row gap-8 md:items-center">
+      <div class="space-y-4  w-full sm:w-[50%] ">
           <div class="inline-flex items-center gap-2 rounded-full text-brand-accent border border-brand-secondary px-6 py-1" style="background-color: rgba(222, 173, 121, 0.2);">
-          <span class="text-sm font-light">{{ home.hero.eyebrow }}</span>
+          <span class="text-sm md:text-base font-light">{{ home.hero.eyebrow }}</span>
         </div>
 
          <h1 class="t-hero-title leading-[0.7]">
-            <span class="text-white text-5xl font-extrabold tracking-wide">{{ home.hero.prefix }}</span><br>
-            <span class="text-brand-secondary text-5xl font-semibold tracking-wide">{{ site.brand.name }}</span>
+            <span class="text-white text-5xl md:text-6xl font-extrabold tracking-wide">{{ home.hero.prefix }}</span><br>
+            <span class="text-brand-secondary text-5xl md:text-6xl font-semibold tracking-wide">{{ site.brand.name }}</span>
           </h1>
 
-        <p class="t-hero-subtitle max-w-xl">
+        <p class="t-hero-subtitle md:text-base max-w-xl">
           {{ site.seo.defaultDescription }}
         </p>
 
         <div class="card-dark p-4">
-          <div class="grid gap-2 text-xs text-neutral-200/90">
+          <div class="grid gap-2 text-xs md:text-sm text-neutral-200/90">
             {% if site.contact.phones and site.contact.phones[0] %}
               <a class="flex items-start gap-2 underline underline-offset-2" href="tel:{{ site.contact.phones[0].tel }}">
-                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">☎</span>
+                <img src="{{ '/assets/images/telephone.png' | url }}" alt="Телефон" class="mt-0.5 h-4 w-4 object-contain">
                 <span>{{ site.contact.phones[0].display | default(site.contact.phones[0].tel) }}</span>
               </a>
             {% endif %}
 
             {% if site.contact.email and site.contact.email.mailto %}
               <a class="flex items-start gap-2 underline underline-offset-2" href="mailto:{{ site.contact.email.mailto }}">
-                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">✉</span>
+                <img src="{{ '/assets/images/email.png' | url }}" alt="Имейл" class="mt-0.5 h-4 w-4 object-contain">
                 <span>{{ site.contact.email.display | default(site.contact.email.mailto) }}</span>
               </a>
             {% endif %}
 
             {% if site.contact.address %}
               <div class="flex items-start gap-2">
-                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">⌂</span>
+                <img src="{{ '/assets/images/gps.png' | url }}" alt="Адрес" class="mt-0.5 h-4 w-4 object-contain">
                 <span>{{ site.contact.address }}</span>
               </div>
             {% endif %}
 
             {% if site.contact.officeHours %}
               <div class="flex items-start gap-2">
-                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">⏱</span>
+                <img src="{{ '/assets/images/working-time.png' | url }}" alt="Работно време" class="mt-0.5 h-4 w-4 object-contain">
                 <span>{{ site.contact.officeHours }}</span>
               </div>
             {% endif %}
@@ -61,12 +61,18 @@
         </div>
       </div>
 
-      <div class="w-full sm:w-[50%] flex justify-center relative border-2 border-blue-500">
-        <div class="h-full w-full max-w-sm overflow-hidden rounded-xl border border-white/10 bg-neutral-900/40 shadow-xl">
-          <img src="{{ home.hero.portrait.src }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="absolute h-100vh w-full object-cover opacity-90 ">
+      {# Image container for mobile only #}
+      <div class="w-full sm:w-[50%] md:hidden flex justify-center relative">
+        <div class="w-full max-w-sm flex flex-col justify-end overflow-hidden ">
+          <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="w-full object-cover object-bottom">
         </div>
       </div>
     </div>
+  </div>
+
+  {# Image positioned absolutely relative to hero section (desktop only) #}
+  <div class="hidden md:block absolute bottom-0 left-auto translate-x-0 right-[max(1rem,calc((100%-1280px)/2))] w- overflow-hidden  z-10">
+    <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="w-full object-cover object-bottom">
   </div>
 </section>
 
