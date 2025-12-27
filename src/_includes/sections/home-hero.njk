@@ -1,22 +1,22 @@
 {# Home: Hero #}
 
-<section class="relative overflow-hidden text-white">
-  <div class="absolute inset-0 bg-gradient-to-r from-neutral-900 to-neutral-800"></div>
-  <div class="absolute inset-0 bg-gradient-to-r from-neutral-900/70 to-neutral-900/20"></div>
+<section class="relative overflow-hidden text-white min-h-screen flex items-center bg-brand-primary">
+  <div class="absolute inset-0 w-full h-full">
+    <img src="{{ '/assets/images/hero-bg.jpg' | url }}" alt="" class="w-full h-full object-cover opacity-70">
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[#121212]/70 to-[#131313]/100"></div>
 
-  <div class="relative container-custom pt-28 pb-10 md:pt-32">
-    <div class="grid gap-8 md:grid-cols-2 md:items-center">
-      <div class="space-y-4">
-        <div class="inline-flex items-center gap-2 rounded border border-brand-accent/30 bg-brand-accent/10 px-3 py-1">
-          <span class="t-eyebrow">{{ home.hero.eyebrow }}</span>
+  <div class="relative container-custom w-full flex items-center py-10 z-1000">
+    <div class="w-full flex flex-col md:flex-row gap-8 md:items-center border-2 border-blue-500">
+      <div class="space-y-4  w-full sm:w-[50%] border-2 border-red-500">
+          <div class="inline-flex items-center gap-2 rounded-full text-brand-accent border border-brand-secondary px-6 py-1" style="background-color: rgba(222, 173, 121, 0.2);">
+          <span class="text-sm font-light">{{ home.hero.eyebrow }}</span>
         </div>
 
-        <div class="space-y-1">
-          <div class="text-white text-sm font-extrabold tracking-wide">{{ home.hero.prefix }}</div>
-          <h1 class="t-hero-title">
-            <span class="text-brand-accent">{{ site.brand.name }}</span>
+         <h1 class="t-hero-title leading-[0.7]">
+            <span class="text-white text-5xl font-extrabold tracking-wide">{{ home.hero.prefix }}</span><br>
+            <span class="text-brand-secondary text-5xl font-semibold tracking-wide">{{ site.brand.name }}</span>
           </h1>
-        </div>
 
         <p class="t-hero-subtitle max-w-xl">
           {{ site.seo.defaultDescription }}
@@ -61,9 +61,9 @@
         </div>
       </div>
 
-      <div class="relative">
-        <div class="mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-xl border border-white/10 bg-neutral-900/40 shadow-xl">
-          <img src="{{ home.hero.portrait.src }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="h-full w-full object-cover opacity-90">
+      <div class="w-full sm:w-[50%] flex justify-center relative border-2 border-blue-500">
+        <div class="h-full w-full max-w-sm overflow-hidden rounded-xl border border-white/10 bg-neutral-900/40 shadow-xl">
+          <img src="{{ home.hero.portrait.src }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="absolute h-100vh w-full object-cover opacity-90 ">
         </div>
       </div>
     </div>

@@ -2,11 +2,15 @@
 module.exports = {
   content: ["./src/**/*.{html,js,njk,md}"],
   safelist: [
+    'font-accent',
+    'font-serif',
     'text-brand-primary',
     'text-brand-secondary',
     'text-brand-accent',
     'bg-brand-primary',
     'bg-brand-secondary',
+    'bg-brand-secondary/20',
+    'bg-brand-secondary/70',
     'bg-brand-accent',
     'border-brand-primary',
     'border-brand-secondary',
