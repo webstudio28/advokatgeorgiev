@@ -1,34 +1,42 @@
 {# Home: About #}
 {% from "macros/ui.njk" import sectionHeader %}
 
-<section class="section-padding">
+<section class="section-padding bg-gradient-to-r from-[#2A2A2A] to-[#212121]">
   <div class="container-custom">
     <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
       <div class="relative">
-        <div class="overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/40 shadow-xl">
+        <div class="overflow-hidden rounded-2xl bg-neutral-900/40 shadow-xl">
           <img src="{{ home.about.image.src }}" alt="{{ home.about.image.alt }}" class="w-full h-full object-cover">
         </div>
 
-        <div class="absolute -bottom-4 left-4 rounded-xl bg-neutral-800/90 backdrop-blur border border-white/10 px-4 py-3 shadow-lg">
-          <div class="text-neutral-200 text-lg font-semibold leading-none">{{ home.about.highlightStat.value }}</div>
-          <div class="text-neutral-400 text-xs mt-1">{{ home.about.highlightStat.label }}</div>
+        <div class="absolute -bottom-4 -right-4 rounded-xl bg-neutral-800/90 backdrop-blur border border-white/10 px-4 py-3 shadow-2xl flex items-center gap-3">
+          <img src="{{ '/assets/images/checked.png' | url }}" alt="Проверено" class="w-8 h-8 object-contain flex-shrink-0">
+          <div>
+            <div class="text-neutral-200 text-lg font-semibold leading-none">{{ home.about.highlightStat.value }}</div>
+            <div class="text-neutral-400 text-xs mt-1">{{ home.about.highlightStat.label }}</div>
+          </div>
         </div>
       </div>
 
       <div class="space-y-6">
         {{ sectionHeader(home.about.eyebrow, home.about.title, home.about.text) }}
 
-        <div class="space-y-3">
+        <div class="space-y-2">
           {% for b in home.about.bullets %}
-            <div class="rounded-lg bg-neutral-900/40 border border-white/10 p-4">
-              <div class="text-sm text-neutral-200 font-medium">{{ b.title }}</div>
-              <div class="mt-1 text-xs text-neutral-400">{{ b.subtitle }}</div>
+            <div class="flex items-start gap-4 rounded-xl bg-neutral-900/40  p-3">
+              <div class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center" style="background-color: rgba(222, 173, 121, 0.2);">
+                <img src="{{ b.icon | url }}" alt="{{ b.iconAlt }}" class="w-6 h-6 object-contain">
+              </div>
+              <div class="flex-1">
+                <div class="text-sm text-neutral-200 font-medium">{{ b.title }}</div>
+                <div class="mt-1 text-xs text-neutral-400">{{ b.subtitle }}</div>
+              </div>
             </div>
           {% endfor %}
         </div>
 
-        <div>
-          <a href="{{ home.about.ctaUrl | url }}" class="btn-brand">
+        <div class="w-full flex justify-end">
+          <a href="{{ home.about.ctaUrl | url }}" class="btn-brand px-8 py-2">
             {{ home.about.ctaLabel }}
           </a>
         </div>

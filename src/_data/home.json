@@ -48,7 +48,7 @@
     "ctaLabel": "Повече за мен",
     "ctaUrl": "/za-men/",
     "image": {
-      "src": "https://placehold.co/640x520",
+      "src": "/assets/images/home-about.jpg",
       "alt": "Адвокат Божидар Георгиев"
     },
     "highlightStat": {
@@ -57,14 +57,20 @@
     },
     "bullets": [
       {
+        "icon": "/assets/images/trust.png",
+        "iconAlt": "Подход",
         "title": "Дългогодишен опит и професионализъм",
         "subtitle": "Доказана експертиза в сложни казуси"
       },
       {
+        "icon": "/assets/images/approach.png",
+        "iconAlt": "Доверие",
         "title": "Внимателен и сигурен подход",
         "subtitle": "Защита на вашите права до край"
       },
       {
+        "icon": "/assets/images/results.png",
+        "iconAlt": "Резултати",
         "title": "Резултати и ангажираност към клиента",
         "subtitle": "Плътно до клиентите в защита на правата им"
       }

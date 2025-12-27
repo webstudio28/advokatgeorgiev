@@ -3,10 +3,10 @@
 {% macro sectionHeader(eyebrow, title, subtitle) %}
   <div class="w-full text-left">
     {% if eyebrow %}
-      <div class="text-xs tracking-wide text-neutral-200/80">{{ eyebrow }}</div>
+      <div class="text-xl font-thin tracking-wide text-brand-accent">{{ eyebrow }}</div>
     {% endif %}
     {% if title %}
-      <h2 class="mt-2 text-xl sm:text-2xl font-semibold text-brand-accent">
+      <h2 class="font-sans text-xl sm:text-3xl font-normal text-brand-secondary">
         {{ title }}
       </h2>
     {% endif %}
