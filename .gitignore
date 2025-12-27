@@ -1,0 +1,45 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# Eleventy output
+_site/
+.output/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# OS-specific
+ehthumbs.db
+Icon?
+!src/assets/images/products/icons/
+Desktop.ini
+
+# VS Code
+.vscode/
+
+# Build tools cache
+.cache/
+.eslintcache
+
+# Deployment
+*.tgz
+*.zip
+*.tar.gz
+
+# Cursor IDE artifacts
+cursor/
+.cursor/
+
+# Local env files
+.env
+.env.*
+
+# GitHub Pages deployment (optional)
+gh-pages/
+
+local_docs/

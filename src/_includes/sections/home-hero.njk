@@ -1,0 +1,73 @@
+{# Home: Hero #}
+
+<section class="relative overflow-hidden text-white">
+  <div class="absolute inset-0 bg-gradient-to-r from-neutral-900 to-neutral-800"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-neutral-900/70 to-neutral-900/20"></div>
+
+  <div class="relative container-custom pt-28 pb-10 md:pt-32">
+    <div class="grid gap-8 md:grid-cols-2 md:items-center">
+      <div class="space-y-4">
+        <div class="inline-flex items-center gap-2 rounded border border-brand-accent/30 bg-brand-accent/10 px-3 py-1">
+          <span class="t-eyebrow">{{ home.hero.eyebrow }}</span>
+        </div>
+
+        <div class="space-y-1">
+          <div class="text-white text-sm font-extrabold tracking-wide">{{ home.hero.prefix }}</div>
+          <h1 class="t-hero-title">
+            <span class="text-brand-accent">{{ site.brand.name }}</span>
+          </h1>
+        </div>
+
+        <p class="t-hero-subtitle max-w-xl">
+          {{ site.seo.defaultDescription }}
+        </p>
+
+        <div class="card-dark p-4">
+          <div class="grid gap-2 text-xs text-neutral-200/90">
+            {% if site.contact.phones and site.contact.phones[0] %}
+              <a class="flex items-start gap-2 underline underline-offset-2" href="tel:{{ site.contact.phones[0].tel }}">
+                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">☎</span>
+                <span>{{ site.contact.phones[0].display | default(site.contact.phones[0].tel) }}</span>
+              </a>
+            {% endif %}
+
+            {% if site.contact.email and site.contact.email.mailto %}
+              <a class="flex items-start gap-2 underline underline-offset-2" href="mailto:{{ site.contact.email.mailto }}">
+                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">✉</span>
+                <span>{{ site.contact.email.display | default(site.contact.email.mailto) }}</span>
+              </a>
+            {% endif %}
+
+            {% if site.contact.address %}
+              <div class="flex items-start gap-2">
+                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">⌂</span>
+                <span>{{ site.contact.address }}</span>
+              </div>
+            {% endif %}
+
+            {% if site.contact.officeHours %}
+              <div class="flex items-start gap-2">
+                <span class="mt-0.5 inline-flex h-4 w-4 items-center justify-center rounded bg-brand-accent/20 text-brand-accent">⏱</span>
+                <span>{{ site.contact.officeHours }}</span>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="pt-2">
+          <a href="{{ home.hero.ctaUrl | url }}" class="btn-brand">
+            {{ home.hero.ctaLabel }}
+          </a>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-xl border border-white/10 bg-neutral-900/40 shadow-xl">
+          <img src="{{ home.hero.portrait.src }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="h-full w-full object-cover opacity-90">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

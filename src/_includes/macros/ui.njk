@@ -1,0 +1,21 @@
+{# Reusable UI helpers for sections/components #}
+
+{% macro sectionHeader(eyebrow, title, subtitle) %}
+  <div class="w-full text-left">
+    {% if eyebrow %}
+      <div class="text-xs tracking-wide text-neutral-200/80">{{ eyebrow }}</div>
+    {% endif %}
+    {% if title %}
+      <h2 class="mt-2 text-xl sm:text-2xl font-semibold text-brand-accent font-['Playfair_Display']">
+        {{ title }}
+      </h2>
+    {% endif %}
+    {% if subtitle %}
+      <p class="mt-3 text-sm text-neutral-200/80 max-w-3xl">
+        {{ subtitle }}
+      </p>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+

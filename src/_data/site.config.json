@@ -1,0 +1,81 @@
+{
+  "lang": "bg",
+  "brand": {
+    "name": "Божидар Георгиев",
+    "logo": {
+      "header": "/assets/images/logo.png",
+      "footer": "/assets/images/logo.png",
+      "alt": "Божидар Георгиев"
+    }
+  },
+  "colors": {
+    "primary": "#0F0F10",
+    "secondary": "#27272A",
+    "accent": "#FDBA74"
+  },
+  "seo": {
+    "siteUrl": "https://www.georgiev.com",
+    "defaultTitle": "Адвокат Божидар Георгиев",
+    "titleSeparator": " | ",
+    "defaultDescription": "Специализиран адвокат в сферата на застрахователното право с доказан опит в защитата на вашите интереси.",
+    "og": {
+      "type": "website",
+      "image": "/assets/images/socials-wide.png",
+      "imageAlt": "Адвокат Божидар Георгиев",
+      "imageWidth": 1200,
+      "imageHeight": 630
+    },
+    "twitter": {
+      "card": "summary_large_image"
+    }
+  },
+  "navigation": [
+    { "label": "Начало", "url": "/" },
+    { "label": "За мен", "url": "/za-men/" },
+    { "label": "Услуги", "url": "/uslugi/" },
+    { "label": "Съдебна практика", "url": "/sadebna-praktika/" },
+    { "label": "Статии", "url": "/statii/" },
+    { "label": "Контакти", "url": "/kontakti/" }
+  ],
+  "headerCta": { "label": "Запитване", "url": "/kontakti/" },
+  "contact": {
+    "phones": [
+      { "tel": "+359890100638", "display": "0890100638" }
+    ],
+    "email": { "mailto": "info@georgiev.com", "display": "info@georgiev.com" },
+    "address": "България, Гр. София, Алабин 42, ет. 3, оф. 10",
+    "officeHours": "Пон–пет: 09:00–17:00ч. • събота/неделя: затворено",
+    "callHoursNote": "Пон–пет: 09:00–17:00ч. • събота/неделя: затворено",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2959.249064014684!2d24.5493113!3d42.123551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14acc700337b83cf%3A0x698f3968e951c44e!2z0KTRgNC40LPQviDQldC60YHQv9GA0LXRgSDQkdCT!5e0!3m2!1sbg!2sbg!4v1766417795362!5m2!1sbg!2sbg"
+  },
+  "footer": {
+    "about": "Професионална правна помощ и защита на вашите интереси.",
+    "ctaStrip": {
+      "title": "Направете запитване бързо и лесно изцяло онлайн",
+      "subtitle": "Получете компетентен отговор на вашия правен въпрос",
+      "buttonLabel": "Запитване",
+      "buttonUrl": "/kontakti/"
+    },
+    "columns": [
+      {
+        "title": "Услуги",
+        "links": [
+          { "label": "Застрахователно право", "url": "/uslugi/" },
+          { "label": "Договорно право", "url": "/uslugi/" },
+          { "label": "Деликтно право", "url": "/uslugi/" }
+        ]
+      },
+      {
+        "title": "Съдебна практика",
+        "links": [
+          { "label": "Пострадали от среднотелесна повреда", "url": "/sadebna-praktika/" },
+          { "label": "Тежко пострадали", "url": "/sadebna-praktika/" },
+          { "label": "Имуществени вреди", "url": "/sadebna-praktika/" },
+          { "label": "Наследници на починали от злополуки", "url": "/sadebna-praktika/" },
+          { "label": "Актуална съдебна практика по години", "url": "/sadebna-praktika/" }
+        ]
+      }
+    ]
+  }
+}
+

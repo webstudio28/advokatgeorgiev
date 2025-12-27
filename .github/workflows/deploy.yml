@@ -1,0 +1,45 @@
+name: "Deploy to cPanel"
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
+jobs: 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: Deploy
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
+      - name: Build CSS
+        run: npm run css:build
+      - name: Build
+        run: npm run build
+
+      - name: Ensure cPanel secrets present
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_PASS: ${{ secrets.CPANEL_PASS }}
+        run: |
+          if [ -z "$CPANEL_HOST" ] || [ -z "$CPANEL_USER" ] || [ -z "$CPANEL_PASS" ]; then
+            echo "One or more required secrets (CPANEL_HOST, CPANEL_USER, CPANEL_PASS) are missing." >&2
+            exit 1
+          fi
+
+      - name: Deploy to cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.CPANEL_HOST }} 
+          username: ${{ secrets.CPANEL_USER }}
+          password: ${{ secrets.CPANEL_PASS }}
+          local-dir: _site/
+          server-dir: public_html/
+          dangerous-clean-slate: true

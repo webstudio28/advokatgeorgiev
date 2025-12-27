@@ -1,0 +1,40 @@
+{# Home: About #}
+{% from "macros/ui.njk" import sectionHeader %}
+
+<section class="section-padding">
+  <div class="container-custom">
+    <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
+      <div class="relative">
+        <div class="overflow-hidden rounded-2xl border border-white/10 bg-neutral-900/40 shadow-xl">
+          <img src="{{ home.about.image.src }}" alt="{{ home.about.image.alt }}" class="w-full h-full object-cover">
+        </div>
+
+        <div class="absolute -bottom-4 left-4 rounded-xl bg-neutral-800/90 backdrop-blur border border-white/10 px-4 py-3 shadow-lg">
+          <div class="text-neutral-200 text-lg font-semibold leading-none">{{ home.about.highlightStat.value }}</div>
+          <div class="text-neutral-400 text-xs mt-1">{{ home.about.highlightStat.label }}</div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        {{ sectionHeader(home.about.eyebrow, home.about.title, home.about.text) }}
+
+        <div class="space-y-3">
+          {% for b in home.about.bullets %}
+            <div class="rounded-lg bg-neutral-900/40 border border-white/10 p-4">
+              <div class="text-sm text-neutral-200 font-medium">{{ b.title }}</div>
+              <div class="mt-1 text-xs text-neutral-400">{{ b.subtitle }}</div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div>
+          <a href="{{ home.about.ctaUrl | url }}" class="btn-brand">
+            {{ home.about.ctaLabel }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

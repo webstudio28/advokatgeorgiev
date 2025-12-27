@@ -1,0 +1,25 @@
+---
+layout: base.njk
+title: Благодаря!
+description: Благодаря Ви за запитването. Frigo Express BG ще се свърже с Вас възможно най-скоро.
+permalink: "/blagodarya/"
+---
+
+<section class="py-20">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <div class="bg-white/90 rounded-3xl shadow-md px-8 py-14 flex flex-col items-center gap-6">
+            <div class="w-16 h-16 rounded-full bg-primary-evergreen/10 flex items-center justify-center">
+                <svg class="w-8 h-8 text-primary-evergreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12l4 4L19 6" />
+                </svg>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-primary-evergreen">Запитването е изпратено успешно!</h1>
+            <p class="text-primary-deepsea text-lg leading-relaxed">Благодаря Ви за доверието. Ще се свържа с Вас възможно най-скоро.</p>
+            <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                <a href="/" class="btn-primary px-6 py-3 rounded-full">Към начална страница</a>
+                <a href="{{ '/kontakti' | url }}" class="btn-secondary px-6 py-3 rounded-full">Обратно към контакти</a>
+            </div>
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,58 @@
+{
+  "categories": [
+    {
+      "name": "Diagnostics",
+      "icon": "🩺",
+      "description": "Includes modern methods for analyzing the body's condition and food tolerance.",
+      "services": [
+        {
+          "name": "VEGA TEST",
+          "description": "A non-invasive test to determine food intolerances and the overall state of the body."
+        },
+        {
+          "name": "Bioscanner",
+          "description": "Quantum magnetic resonance analyzer for a quick overview of your health status."
+        },
+        {
+          "name": "Bioresonance",
+          "description": "Therapy using electromagnetic waves to harmonize the body's functions."
+        },
+        {
+          "name": "Vitamin and Mineral Test",
+          "description": "Identifies deficiencies and imbalances of essential nutrients in your body."
+        },
+        {
+          "name": "Schuessler Salts Test",
+          "description": "Determines which mineral salts your cells need to restore balance."
+        }
+      ]
+    },
+    {
+      "name": "Therapies and Holistic Programs",
+      "icon": "🌿",
+      "description": "Supports the natural processes of detoxification, recovery, and emotional balance.",
+      "services": [
+        {
+          "name": "Meta Therapy",
+          "description": "A holistic approach to healing that addresses the root causes of health issues."
+        },
+        {
+          "name": "Anti-parasite Program",
+          "description": "A comprehensive program to cleanse the body of harmful organisms."
+        },
+        {
+          "name": "10-day Anti-parasite Detox 'AT HOME' (with Zapper device)",
+          "description": "An intensive home detox program utilizing a Zapper device for effective cleansing."
+        },
+        {
+          "name": "Gluten Detox Therapy (Toni Jansen method)",
+          "description": "A specialized therapy to help the body recover from gluten intolerance."
+        },
+        {
+          "name": "Australian Bush Flower Essences",
+          "description": "Using the healing power of flowers to restore emotional and spiritual wellbeing."
+        }
+      ]
+    }
+  ]
+}

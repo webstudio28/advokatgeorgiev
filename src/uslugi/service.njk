@@ -1,0 +1,158 @@
+---
+layout: base.njk
+pagination:
+  data: services
+  size: 1
+  alias: service
+permalink: "/uslugi/{{ service.slug }}/"
+eleventyComputed:
+  title: "{{ service.name }}"
+  description: "{{ service.metaDescription or service.description }}"
+  metaTitle: "{{ service.metaTitle or (service.name ~ (site.seo.titleSeparator or ' | ') ~ site.brand.name) }}"
+  metaDescription: "{{ service.metaDescription or service.description }}"
+---
+
+<!-- Hero Section with Image Carousel -->
+<section class="relative pb-18 pt-6 md:pt-10">
+	<div class="max-w-7xl w-full mx-auto px-4">
+		<div class="flex flex-col gap-2 md:gap-4">
+			<!-- Title -->
+			<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-blue">{{ service.name }}</h1>
+			
+			<!-- Short Description -->
+			<p class="text-md pb-4 md:max-w-[100%] text-primary-deepsea leading-relaxed">
+				{{ service.description }}
+			</p>
+
+			<!-- Service Icon Container with Background Color -->
+			<div class="relative rounded-3xl overflow-hidden shadow-xl w-full">
+				<div 
+					class="relative w-full h-80 md:h-[500px] flex items-center justify-center"
+					style="background-color: {{ service.serviceCardColor or '#F5F5F5' }};"
+				>
+					{% if service.serviceIcon %}
+						<img
+							src="{{ service.serviceIcon | url }}"
+							alt="{{ service.name }}"
+							class="h-32 w-auto md:h-40 object-contain"
+						>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Long Description Section -->
+{% if service.longDescription %}
+<section class="py-4 md:py-12">
+	<div class="max-w-7xl w-full mx-auto px-4">
+		<h2 class="text-2xl md:text-3xl font-bold text-primary-blue mb-8">Описание</h2>
+		<div class="space-y-6">
+			{% if service.longDescription is string %}
+				<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+					<div class="prose prose-lg max-w-none">
+						{{ service.longDescription | safe }}
+					</div>
+				</div>
+			{% else %}
+				{% for paragraph in service.longDescription %}
+					<div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+						<p class="text-primary-deepsea leading-relaxed text-base md:text-lg">
+							{{ paragraph | safe }}
+						</p>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+</section>
+{% endif %}
+
+<!-- Key Points Section -->
+{% if service.keyPoints and service.keyPoints.length > 0 %}
+<section class="py-4 md:py-12">
+	<div class="max-w-7xl w-full mx-auto px-4">
+		<h2 class="text-2xl md:text-3xl font-bold text-primary-blue mb-8">Предимства</h2>
+		<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+			{% for point in service.keyPoints %}
+				<div class="bg-white rounded-xl p-4 md:p-5 shadow-sm border border-[#25425E]/10">
+					<p class="text-primary-deepsea text-sm leading-relaxed">{{ point }}</p>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+
+<!-- FAQ Section -->
+{% if service.faq and service.faq.length > 0 %}
+<section class="py-4 md:py-12">
+	<div class="max-w-7xl w-full mx-auto px-4">
+		<h2 class="text-2xl md:text-3xl font-bold text-primary-blue mb-8">Често задавани въпроси</h2>
+		<div class="flex flex-col gap-6">
+			{% for item in service.faq %}
+				<details class="group bg-white p-6 rounded-3xl shadow-sm" {% if loop.first %}open{% endif %}>
+					<summary class="flex justify-between items-center cursor-pointer font-semibold text-primary-deepsea">
+						{{ item.question }}
+						<svg class="w-5 h-5 transition-transform duration-300 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+						</svg>
+					</summary>
+					<div class="mt-4 text-primary-dark-gray">
+						{{ item.answer }}
+					</div>
+				</details>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endif %}
+
+<!-- CTA Section -->
+<section class="py-4 md:py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="relative h-[600px] md:h-[400px] w-full flex flex-col md:flex-row justify-evenly items-center gap-12 p-8 overflow-hidden rounded-3xl">
+
+            <div class="-z-10 absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                <img src="{{ '/assets/images/home-cta.png' | url }}" alt="CTA Image" class="w-full h-full object-cover" style="filter: brightness(0.3);">
+            </div>
+
+            
+            <div class="cta-left-side w-full sm-w-[50%] flex flex-col justify-center items-center sm:items-center text-center md:text-left">
+
+                <h2 class="text-white text-3xl md:text-4xl lg:text-5xl font-semibold">
+                    Хладилен транспорт?
+                </h2>
+                <p class="text-white text-sm font-light">
+                    Свържете се с нас и получите индивидуално предложение за вашата пратка. Работим 24/7 и гарантираме пълна сигурност.
+                </p>
+
+            </div>
+
+            <div class="w-full sm-w-[50%] cta-right-side ">
+
+                <div class="p-8 home-cta-buttons-ct bg-white/80 rounded-3xl flex flex-col gap-4 sm:flexcol">
+
+                    <p class="text-primary-volcanic text-sm font-semibold">Запазете час или получете предложение</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+
+                        <a href="tel:{{ site.contact.phones[0].tel }}" class="text-white flex items-center justify-center gap-2 btn-primary w-full text-center rounded-3xl">
+                            Обадете ни се
+                        </a>
+
+                        <a href="{{ '/kontakti/' | url }}" class="flex items-center justify-center gap-2 btn-secondary hover:scale-105 transition-all duration-300 w-full text-center rounded-3xl">
+                            Контакти
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+

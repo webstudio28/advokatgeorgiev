@@ -1,0 +1,92 @@
+---
+layout: base.njk
+title: Контакти
+description: Свържете се с Frigo Express BG за професионален хладилен транспорт. Приемаме обаждания по всяко време на денонощието.
+---
+
+<section class="py-4 md:py-12">
+    <div class="max-w-7xl w-full mx-auto px-4 flex flex-col gap-8">
+        <div class="w-full text-left">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-blue">Контакти</h1>
+            <p class="mt-3 text-primary-deepsea max-w-3xl">Имате въпроси или желаете да запазите час? Свържете се с нас.</p>
+        </div>
+
+        <div class="w-full flex flex-col md:flex-row gap-8">
+            <div class="flex-1 bg-white p-8 rounded-3xl shadow-md">
+                <h2 class="text-2xl font-bold text-primary-deepsea mb-4">Информация</h2>
+                <div class="space-y-4 text-primary-dark-gray">
+                    {% if site.contact.phones %}
+                        {% for phone in site.contact.phones %}
+                            <div class="flex items-center gap-1">
+                                <span class="flex items-center justify-center w-8 h-8">
+                                    <img src="{{ '/assets/images/phone.png' | url }}" alt="Телефон" class="w-5 h-5 object-contain">
+                                </span>
+                                <p class="leading-relaxed">
+                                    <a href="tel:{{ phone.tel }}" class="text-primary-blue hover:underline">{{ phone.display | default(phone.tel) }}</a>
+                                </p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="flex items-center gap-1">
+                        <span class="flex items-center justify-center w-8 h-8">
+                            <img src="{{ '/assets/images/mail.png' | url }}" alt="Имейл" class="w-5 h-5 object-contain">
+                        </span>
+                        <p class="leading-relaxed"><a href="mailto:{{ site.contact.email.mailto }}" class="text-primary-blue hover:underline">{{ site.contact.email.display | default(site.contact.email.mailto) }}</a></p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-primary-sand/30">
+                        <p class="text-sm text-primary-dark-gray">{{ site.contact.callHoursNote }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-1 bg-white p-8 rounded-3xl shadow-md">
+                <h2 class="text-2xl font-bold text-primary-deepsea mb-4">Локация</h2>
+                <div class="rounded-2xl overflow-hidden">
+                    <iframe 
+                        src="{{ site.contact.mapEmbedUrl }}" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="w-full h-[300px] md:h-[400px]">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-4 md:py-12">
+    <div class="max-w-7xl w-full mx-auto px-4">
+        <div class="bg-white/80 rounded-3xl shadow-md p-8 md:p-10">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary-blue mb-6">Форма за контакт</h2>
+            <form action="https://api.web3forms.com/submit" method="POST" class="space-y-5" id="contact-form">
+                    <input type="hidden" name="access_key" value="e249ab97-1004-4e40-a5ac-88d6ca583637">
+                <input type="hidden" name="subject" value="Ново запитване от сайта">
+                <input type="hidden" name="redirect" value="{{ '/blagodarya/' | url }}">
+                <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+                <div class="">
+                    <label for="contact-name" class="text-sm font-semibold text-primary-deepsea">Име и фамилия</label>
+                    <input id="contact-name" name="name" type="text"  class="w-full rounded-2xl border border-primary-sand/70 bg-white/70 px-4 py-3 text-primary-volcanic placeholder:text-primary-dune/60 focus:outline-none focus:ring-2 focus:ring-primary-evergreen/50 focus:border-primary-evergreen transition" required>
+                </div>
+                <div class="">
+                    <label for="contact-email" class="text-sm font-semibold text-primary-deepsea">Имейл</label>
+                    <input id="contact-email" name="email" type="email"  class="w-full rounded-2xl border border-primary-sand/70 bg-white/70 px-4 py-3 text-primary-volcanic placeholder:text-primary-dune/60 focus:outline-none focus:ring-2 focus:ring-primary-evergreen/50 focus:border-primary-evergreen transition" required>
+                </div>
+                <div class="">
+                    <label for="contact-message" class="text-sm font-semibold text-primary-deepsea">Вашето запитване</label>
+                    <textarea id="contact-message" name="message" rows="5"  class="w-full rounded-2xl border border-primary-sand/70 bg-white/70 px-4 py-3 text-primary-volcanic placeholder:text-primary-dune/60 focus:outline-none focus:ring-2 focus:ring-primary-evergreen/50 focus:border-primary-evergreen transition resize-none" required></textarea>
+                </div>
+                <div class="flex items-start gap-2">
+                    <input type="checkbox" id="contact-consent" name="consent" class="mt-1 w-4 h-4 rounded border-primary-sand/70 text-primary-blue focus:ring-2 focus:ring-primary-evergreen/50" required>
+                    <label for="contact-consent" class="text-sm text-primary-deepsea">Не съм робот</label>
+                </div>
+                <div class="pt-2">
+                    <button type="submit" class="btn-primary w-full md:w-auto px-8 py-3 rounded-3xl">Изпрати</button>
+                </div>
+                <p class="text-sm text-primary-dune/80" id="contact-form-result"></p>
+            </form>
+        </div>
+    </div>
+</section>

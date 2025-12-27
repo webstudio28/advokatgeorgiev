@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default('bg') }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {# Nunjucks uses: a if condition else b (NOT JS ternary condition ? a : b) #}
+        {% set resolvedTitle = metaTitle or ((title ~ (site.seo.titleSeparator | default(' | ')) ~ site.brand.name) if title else site.seo.defaultTitle) %}
+        {% set resolvedDescription = metaDescription or description or site.seo.defaultDescription %}
+
+        <title>{{ resolvedTitle }}</title>
+        <meta name="description" content="{{ resolvedDescription }}">
+
+        <!-- Brand Colors (data-driven) -->
+        <style>
+            :root {
+                --color-brand-primary: {{ site.colors.primary | default('#25425E') }};
+                --color-brand-secondary: {{ site.colors.secondary | default('#4A6B8A') }};
+                --color-brand-accent: {{ site.colors.accent | default('#C8E6C9') }};
+            }
+        </style>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | url }}">
+        <link rel="canonical" href="{{ site.seo.siteUrl }}{{ page.url | url }}">
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="{{ '/assets/css/styles.css' | url }}">
+        <link rel="stylesheet" href="{{ '/assets/css/custom-styles.css' | url }}">
+        <link rel="stylesheet" href="{{ '/assets/css/home.css' | url }}">
+
+        <!-- Open Graph meta tags -->
+        <meta property="og:title" content="{{ resolvedTitle }}"/>
+        <meta property="og:description" content="{{ resolvedDescription }}"/>
+        <meta property="og:type" content="{{ site.seo.og.type | default('website') }}"/>
+        <meta property="og:image" content="{{ site.seo.siteUrl }}{{ site.seo.og.image | url }}"/>
+        <meta property="og:image:width" content="{{ site.seo.og.imageWidth | default(1200) }}"/>
+        <meta property="og:image:height" content="{{ site.seo.og.imageHeight | default(630) }}"/>
+        <meta property="og:image:alt" content="{{ site.seo.og.imageAlt | default(resolvedTitle) }}"/>
+        <meta property="og:url" content="{{ site.seo.siteUrl }}{{ page.url | url }}"/>
+        
+        <!-- Twitter Card meta tags -->
+        <meta name="twitter:card" content="{{ site.seo.twitter.card | default('summary_large_image') }}"/>
+        <meta name="twitter:title" content="{{ resolvedTitle }}"/>
+        <meta name="twitter:description" content="{{ resolvedDescription }}"/>
+        <meta name="twitter:image" content="{{ site.seo.siteUrl }}{{ site.seo.og.image | url }}"/>
+        <!-- Alternative: use summary card with square image -->
+        <!-- <meta name="twitter:card" content="summary"/> -->
+        <!-- <meta name="twitter:image" content="{{ site.seo.siteUrl }}{{ '/assets/images/socials-square.png' | url }}"/> -->
+
+        <script>
+            // Mobile menu toggle (simple)
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggle = document.getElementById('mobile-menu-toggle');
+                const menu = document.getElementById('mobile-menu');
+                const closeBtn = document.getElementById('mobile-menu-close');
+                const body = document.body;
+
+                const open = () => {
+                    if (!menu) return;
+                    menu.classList.remove('opacity-0', 'pointer-events-none');
+                    body.style.overflow = 'hidden';
+                };
+
+                const close = () => {
+                    if (!menu) return;
+                    menu.classList.add('opacity-0', 'pointer-events-none');
+                    body.style.overflow = '';
+                };
+
+                if (toggle && menu) toggle.addEventListener('click', open);
+                if (closeBtn && menu) closeBtn.addEventListener('click', close);
+
+                // Close when clicking backdrop
+                if (menu) {
+                    menu.addEventListener('click', (e) => {
+                        if (e.target === menu) close();
+                    });
+                }
+
+                // Close on ESC
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') close();
+                });
+            });
+        </script>
+
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+
+
+    </head>
+    <body class="bg-neutral-900 text-neutral-100 font-['Montserrat']">
+        <!-- Header -->
+        <header class="fixed top-0 left-0 right-0 z-50 header-custom">
+            <div class="container-custom h-12 flex items-center gap-3">
+                <a href="{{ '/' | url }}" class="flex items-center gap-2">
+                    <img src="{{ site.brand.logo.header | url }}" alt="{{ site.brand.logo.alt | default(site.brand.name) }}" class="h-6 w-6 object-contain">
+                    <div class="text-brand-accent text-xs font-medium leading-[0.95] font-['Source_Serif_4']">
+                        {{ site.brand.name | replace(' ', '<br/>') | safe }}
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex ml-6">
+                    <ul class="flex items-center gap-5 text-xs text-neutral-200/90">
+                        {% if site.navigation %}
+                            {% for item in site.navigation %}
+                                <li>
+                                    <a href="{{ item.url | url }}" class="hover:text-white transition">{{ item.label }}</a>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </nav>
+
+                <div class="ml-auto flex items-center gap-2">
+                    {% if site.headerCta %}
+                        <a href="{{ site.headerCta.url | url }}" class="btn-brand hidden md:inline-flex text-xs px-3 py-1.5 rounded">
+                            {{ site.headerCta.label }}
+                        </a>
+                    {% endif %}
+
+                    <button id="mobile-menu-toggle" class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded bg-white/5 border border-white/10">
+                        <span class="sr-only">Меню</span>
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200">
+            <div class="absolute right-0 top-0 h-full w-full max-w-sm bg-neutral-900 border-l border-white/10 p-6">
+                <div class="flex items-center justify-between">
+                    <div class="text-brand-accent text-sm font-medium font-['Source_Serif_4'] leading-none">
+                        {{ site.brand.name | replace(' ', '<br/>') | safe }}
+                    </div>
+                    <button id="mobile-menu-close" class="inline-flex h-9 w-9 items-center justify-center rounded bg-white/5 border border-white/10">
+                        <span class="sr-only">Затвори</span>
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <nav class="mt-8 flex flex-col gap-2 text-base">
+                    {% if site.navigation %}
+                        {% for item in site.navigation %}
+                            <a href="{{ item.url | url }}" class="rounded-lg border border-white/10 px-4 py-3 hover:bg-white/5 transition">
+                                {{ item.label }}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </nav>
+
+                {% if site.headerCta %}
+                    <div class="mt-6">
+                        <a href="{{ site.headerCta.url | url }}" class="btn-brand w-full">
+                            {{ site.headerCta.label }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="pt-12">
+            {{ content | safe }}
+        </main>
+
+        {% if site.footer and site.footer.ctaStrip %}
+            <section class="bg-brand-accent text-neutral-900">
+                <div class="container-custom py-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div class="min-w-0">
+                        <div class="text-base font-semibold">{{ site.footer.ctaStrip.title }}</div>
+                        <div class="text-sm text-neutral-800/80">{{ site.footer.ctaStrip.subtitle }}</div>
+                    </div>
+                    <a href="{{ site.footer.ctaStrip.buttonUrl | url }}" class="btn-brand-dark w-full md:w-auto">
+                        {{ site.footer.ctaStrip.buttonLabel }}
+                    </a>
+                </div>
+            </section>
+        {% endif %}
+
+        <footer class="bg-neutral-900 text-neutral-200 border-t border-white/10">
+            <div class="container-custom py-10">
+                <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+                    <div>
+                        <div class="text-brand-accent text-sm font-medium font-['Source_Serif_4'] leading-none">
+                            {{ site.brand.name | replace(' ', '<br/>') | safe }}
+                        </div>
+                        {% if site.footer and site.footer.about %}
+                            <p class="mt-3 text-sm text-neutral-400 leading-relaxed">
+                                {{ site.footer.about }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    {% if site.footer and site.footer.columns %}
+                        {% for col in site.footer.columns %}
+                            <div>
+                                <div class="text-sm font-semibold text-neutral-200">{{ col.title }}</div>
+                                <div class="mt-3 flex flex-col gap-2 text-sm text-neutral-400">
+                                    {% if col.links %}
+                                        {% for link in col.links %}
+                                            <a href="{{ link.url | url }}" class="hover:text-neutral-200 transition">
+                                                {{ link.label }}
+                                            </a>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div>
+                        <div class="text-sm font-semibold text-neutral-200">Контакти</div>
+                        <div class="mt-3 space-y-2 text-sm text-neutral-400">
+                            {% if site.contact.phones %}
+                                {% for phone in site.contact.phones %}
+                                    <a class="block hover:text-neutral-200 transition underline underline-offset-2" href="tel:{{ phone.tel }}">
+                                        {{ phone.display | default(phone.tel) }}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+                            {% if site.contact.email and site.contact.email.mailto %}
+                                <a class="block hover:text-neutral-200 transition underline underline-offset-2" href="mailto:{{ site.contact.email.mailto }}">
+                                    {{ site.contact.email.display | default(site.contact.email.mailto) }}
+                                </a>
+                            {% endif %}
+                            {% if site.contact.address %}
+                                <div>{{ site.contact.address }}</div>
+                            {% endif %}
+                            {% if site.contact.officeHours %}
+                                <div>{{ site.contact.officeHours }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 border-t border-white/10 pt-6 text-xs text-neutral-500">
+                    &copy; {{ site.currentYear }} {{ site.brand.name }}. Всички права запазени.
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Drag-to-scroll for horizontal lists
+            (function () {
+                const containers = document.querySelectorAll('.drag-scroll');
+                containers.forEach((el) => {
+                    let isDown = false;
+                    let startX = 0;
+                    let scrollLeftStart = 0;
+
+                    const onDown = (clientX) => {
+                        isDown = true;
+                        startX = clientX;
+                        scrollLeftStart = el.scrollLeft;
+                        el
+                            .classList
+                            .add('dragging');
+                    };
+                    const onMove = (clientX) => {
+                        if (!isDown) 
+                            return;
+                        const dx = clientX - startX;
+                        el.scrollLeft = scrollLeftStart - dx;
+                    };
+                    const onUp = () => {
+                        isDown = false;
+                        el
+                            .classList
+                            .remove('dragging');
+                    };
+
+                    // Mouse events
+                    el.addEventListener('mousedown', (e) => {
+                        // left button only
+                        if (e.button !== 0) 
+                            return;
+                        onDown(e.clientX);
+                        e.preventDefault();
+                    });
+                    window.addEventListener('mousemove', (e) => onMove(e.clientX));
+                    window.addEventListener('mouseup', onUp);
+
+                    // Touch events
+                    el.addEventListener('touchstart', (e) => onDown(e.touches[0].clientX), {passive: true});
+                    window.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX), {passive: true});
+                    window.addEventListener('touchend', onUp);
+                });
+            })();
+
+             {# // Equalize description heights
+             (function(){
+               function equalizeDescriptions() {
+                 document.querySelectorAll('.drag-scroll').forEach(row => {
+                   const descriptions = row.querySelectorAll('.service-card-description');
+                   if (!descriptions.length) return;
+ 
+                   // Reset heights to get natural size
+                   descriptions.forEach(desc => { desc.style.height = 'auto'; });
+                   
+                   // Force reflow before measuring
+                   void descriptions[0].offsetHeight;
+ 
+                   let maxHeight = 0;
+                   descriptions.forEach(desc => {
+                     maxHeight = Math.max(maxHeight, desc.offsetHeight);
+                   });
+ 
+                   descriptions.forEach(desc => {
+                     desc.style.height = `${maxHeight}px`;
+                   });
+                 });
+               }
+               
+               window.addEventListener('load', equalizeDescriptions);
+               window.addEventListener('resize', equalizeDescriptions);
+               const ro = new ResizeObserver(equalizeDescriptions);
+               document.querySelectorAll('.drag-scroll').forEach(el => ro.observe(el));
+             })(); #}
+        </script>
+    </body>
+</html>

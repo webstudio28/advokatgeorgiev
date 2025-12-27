@@ -1,0 +1,96 @@
+---
+layout: base.njk
+title: Транспорт
+description: Нашият хладилен автопарк - модерни, сертифицирани превозни средства с валидирани агрегати и 24/7 мониторинг за сигурен транспорт на вашите стоки.
+permalink: /transport/
+pagination:
+    data: transport
+    size: 1000
+    alias: fleet
+---
+
+<section class="py-4 md:py-12">
+    <div class="max-w-7xl w-full mx-auto px-4 flex flex-col gap-8">
+        <div class="w-full text-left">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[#25425E]">Нашият хладилен автопарк</h1>
+            <p class="mt-3 text-primary-deepsea max-w-7xl">Изберете подходящото превозно средство според товара, температурния диапазон и дестинацията. Всички камиони и бусове са оборудвани със системи за мониторинг и документиране на студената верига.</p>
+        </div>
+
+        <div class="pt-8">
+            <div class="pb-2 flex overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:justify-items-center sm:overflow-visible scrollbar-hide">
+                {% for vehicle in fleet %}
+                <div class="relative flex-shrink-0 flex flex-col bg-white rounded-3xl shadow-md overflow-hidden w-full max-w-[280px] sm:max-w-[300px]">
+                    <!-- Diagonal Color Block - Absolute to card -->
+                    <div
+                        class="absolute top-0 left-0 w-full"
+                        style="background-color: {{ vehicle.serviceCardColor or '#D8E8DB' }}; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 85%); height: 200px;"
+                    ></div>
+                    
+                    <div
+                        class="absolute top-0 left-0 w-full"
+                        style="background-color: #4F4F6C; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 0); height: 200px;"
+                    ></div>
+                    
+                    <!-- Image Container - Full Width, Fixed Height -->
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <!-- Vehicle Graphic -->
+                        {% if vehicle.transportCardGraphic %}
+                            <div class="relative z-10 h-full flex items-center justify-center pt-4">
+                                <img
+                                    src="{{ vehicle.transportCardGraphic | url }}"
+                                    alt="{{ vehicle.title }}"
+                                    class="w-[80%] max-h-[140px] object-contain"
+                                >
+                            </div>
+                        {% elif vehicle.images and vehicle.images[0] %}
+                            <div class="relative z-10 h-full flex items-center justify-center pt-4">
+                                <img
+                                    src="{{ vehicle.images[0] | url }}"
+                                    alt="{{ vehicle.title }}"
+                                    class="w-[80%] max-h-[140px] object-contain"
+                                >
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Text Content Container - With Padding -->
+                    <div class="px-4 py-4 flex flex-col gap-3 flex-1">
+                        <h3 class="text-lg font-semibold text-primary-blue leading-snug">
+                            {{ vehicle.title }}
+                        </h3>
+                        <p class="text-sm text-primary-deepsea leading-relaxed">
+                            {{ vehicle.shortDescription or vehicle.short_description }}
+                        </p>
+                        
+                        <div class="flex flex-col gap-2 text-sm">
+                            {% if vehicle.temperature_range %}
+                                <div class="flex items-center justify-between gap-2 bg-[#25425E]/5 rounded-2xl px-3 py-2">
+                                    <span class="font-semibold text-[#25425E]">Температура</span>
+                                    <span>{{ vehicle.temperature_range }}</span>
+                                </div>
+                            {% endif %}
+                            {% if vehicle.capacity %}
+                                <div class="flex items-center justify-between gap-2 bg-[#25425E]/5 rounded-2xl px-3 py-2">
+                                    <span class="font-semibold text-[#25425E]">Капацитет</span>
+                                    <span>{{ vehicle.capacity }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="w-full flex justify-end mt-2">
+                            <a
+                                href="{{ ('/transport/' ~ vehicle.meta_title ~ '/') | url }}"
+                                class="inline-flex items-center gap-2 rounded-full bg-primary-blue text-white px-5 py-2 text-sm font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+                            >
+                                Вижте повече
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+

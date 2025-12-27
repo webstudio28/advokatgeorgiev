@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        @apply antialiased;
+    }
+}
+
+@layer components {
+    .section-padding {
+        @apply py-16 md:py-24;
+    }
+    
+    .container-custom {
+        @apply max-w-7xl mx-auto px-4 md:px-6;
+    }
+    
+    .btn-primary {
+        @apply bg-primary-blue text-white font-semibold px-8 py-4 rounded-full hover:text-white hover:shadow-lg hover:scale-105 transition-all duration-300 inline-block;
+    }
+
+    /* Generic brand buttons (data-driven via CSS variables) */
+    .btn-brand {
+        @apply inline-flex items-center justify-center rounded-md bg-brand-accent text-neutral-900 font-semibold px-4 py-2 shadow-sm hover:shadow-md transition;
+    }
+
+    .btn-brand-dark {
+        @apply inline-flex items-center justify-center rounded-md bg-neutral-900 text-neutral-100 font-semibold px-4 py-2 shadow-sm hover:shadow-md transition;
+    }
+
+    /* Typography helpers (avoid repeating font/size/weight everywhere) */
+    .t-eyebrow {
+        @apply text-xs tracking-wide text-neutral-200/90;
+    }
+
+    .t-hero-title {
+        @apply text-3xl sm:text-4xl font-extrabold text-white leading-tight;
+    }
+
+    .t-hero-subtitle {
+        @apply text-sm sm:text-base text-neutral-200/90 leading-relaxed;
+    }
+
+    .card-dark {
+        @apply rounded-lg bg-neutral-700/40 border border-white/10;
+    }
+      
+    .btn-secondary {
+        @apply border-2 border-primary-moss text-primary-moss font-semibold px-8 py-4 rounded-full hover:bg-primary-accent hover:text-white transition-all duration-300 inline-block;
+    }
+    
+    .card-hover {
+        @apply transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl;
+    }
+    
+    .text-gradient {
+        @apply bg-gradient-to-r from-primary-evergreen via-primary-deepsea to-accent-terracotta bg-clip-text text-transparent;
+    }
+
+} 

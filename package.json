@@ -1,0 +1,33 @@
+{
+  "name": "frigobg",
+  "version": "1.0.0",
+  "description": "Frigo Express BG - Хладилен транспорт в Европа",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "css:build": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/assets/css/styles.css --minify",
+    "css:watch": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/assets/css/styles.css --watch",
+    "dev": "npm-run-all --parallel css:watch start",
+    "deploy": "echo 'Use GitHub Actions instead'"
+  },
+  "keywords": [
+    "11ty",
+    "eleventy",
+    "tailwindcss",
+    "static-site",
+    "template"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "autoprefixer": "^10.4.17",
+    "gh-pages": "^6.3.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}

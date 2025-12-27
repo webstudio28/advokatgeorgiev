@@ -1,0 +1,27 @@
+# =========================================================
+# Static site routing
+# =========================================================
+
+Options -Indexes
+DirectoryIndex index.html
+
+# ---------------------------------------------------------
+# Security headers
+# ---------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+  Header always set Content-Security-Policy "upgrade-insecure-requests"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "no-referrer-when-downgrade"
+  Header always set Permissions-Policy "accelerometer=(), camera=(), microphone=(), geolocation=()"
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # -------------------------------------------------------
+  # Cross-Origin Isolation
+  # -------------------------------------------------------
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  # COEP removed to allow third-party embeds (Google Maps, etc.)
+  # If you need cross-origin isolation, use: "credentialless" instead of "require-corp"
+  # Header always set Cross-Origin-Embedder-Policy "require-corp"
+  Header always set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>

@@ -1,0 +1,29 @@
+{# Home: Court Practice #}
+{% from "macros/ui.njk" import sectionHeader %}
+
+<section class="section-padding">
+  <div class="container-custom">
+    {{ sectionHeader(home.courtPractice.eyebrow, home.courtPractice.title, null) }}
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {% for item in home.courtPractice.items %}
+        <a href="{{ item.url | url }}" class="group rounded-2xl bg-neutral-700/50 border border-white/10 p-5 shadow-[0px_2px_16px_0px_rgba(0,0,0,0.25)] hover:bg-neutral-700/60 transition">
+          <div class="text-sm font-semibold text-neutral-100">
+            {{ item.title }}
+          </div>
+          {% if item.text %}
+            <div class="mt-2 text-sm text-neutral-400 leading-relaxed">
+              {{ item.text }}
+            </div>
+          {% endif %}
+          <div class="mt-4 flex items-center justify-between text-sm text-neutral-300">
+            <span class="text-neutral-300/80">Виж повече</span>
+            <span class="text-neutral-300/80 transition group-hover:translate-x-0.5">→</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
