@@ -43,7 +43,7 @@ eleventyComputed:
         {% endif %}
       </header>
 
-      <div class="prose prose-invert prose-lg max-w-none">
+      <div class="article-content">
         {% if article.content.contentPath %}
           {% set contentPath = "src/" ~ article.content.contentPath %}
           {% set markdownContent = contentPath | readFile %}
