@@ -1,0 +1,56 @@
+---
+layout: base.njk
+pagination:
+  data: statiiList
+  size: 1
+  alias: article
+permalink: "/statii/{{ article.slug }}/"
+eleventyComputed:
+  title: "{{ article.meta.title }}"
+  description: "{{ article.meta.description }}"
+---
+
+<section class="section-padding">
+  <div class="container-custom">
+    <article>
+      <header class="mb-8">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-100 mb-4">
+          {{ article.hero.title }}
+        </h1>
+        
+        <div class="flex items-center gap-4 text-sm text-neutral-400 mb-6">
+          {% if article.author %}
+            <span>Автор: {{ article.author }}</span>
+          {% endif %}
+          {% if article.date %}
+            <span>{{ article.date | formatDate }}</span>
+          {% endif %}
+          {% if article.category %}
+            <span class="text-brand-accent">{{ article.category }}</span>
+          {% endif %}
+        </div>
+
+        {% if article.hero.image %}
+          <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 mb-8">
+            <img src="{{ article.hero.image | url }}" alt="{{ article.title }}" class="w-full h-full object-cover">
+          </div>
+        {% endif %}
+
+        {% if article.hero.subtitle %}
+          <p class="text-lg text-neutral-300 leading-relaxed">
+            {{ article.hero.subtitle }}
+          </p>
+        {% endif %}
+      </header>
+
+      <div class="prose prose-invert prose-lg max-w-none">
+        {% if article.content.contentPath %}
+          {% set contentPath = "src/" ~ article.content.contentPath %}
+          {% set markdownContent = contentPath | readFile %}
+          {{ markdownContent | markdown | safe }}
+        {% endif %}
+      </div>
+    </article>
+  </div>
+</section>
+

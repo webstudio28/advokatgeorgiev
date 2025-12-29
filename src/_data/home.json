@@ -86,27 +86,7 @@
   },
   "articles": {
     "eyebrow": "Статии",
-    "title": "Правни новини",
-    "items": [
-      {
-        "title": "Застрахователно право",
-        "text": "Кратко въведение към статията (placeholder).",
-        "url": "/statii/",
-        "image": "https://placehold.co/640x360"
-      },
-      {
-        "title": "Договорно право",
-        "text": "Кратко въведение към статията (placeholder).",
-        "url": "/statii/",
-        "image": "https://placehold.co/640x360"
-      },
-      {
-        "title": "Деликтно право",
-        "text": "Кратко въведение към статията (placeholder).",
-        "url": "/statii/",
-        "image": "https://placehold.co/640x360"
-      }
-    ]
+    "title": "Правни новини"
   }
 }
 
