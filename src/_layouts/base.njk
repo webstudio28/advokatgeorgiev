@@ -253,6 +253,32 @@
         </footer>
 
         <script>
+            // Prevent unwanted auto-scroll on page load while preserving scroll position on refresh
+            (function() {
+                let scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // If there's a hash in the URL, remove it to prevent auto-scroll
+                if (window.location.hash) {
+                    // Store the hash temporarily
+                    const hash = window.location.hash;
+                    // Remove hash from URL without triggering scroll
+                    history.replaceState(null, null, ' ');
+                    // Restore scroll position
+                    window.scrollTo(0, scrollPosition);
+                }
+                
+                // Prevent any scroll behavior during initial load
+                window.addEventListener('load', function() {
+                    // Small delay to ensure everything is rendered
+                    setTimeout(function() {
+                        // Only restore scroll if we had a position and no hash was trying to scroll
+                        if (scrollPosition > 0 && !window.location.hash) {
+                            window.scrollTo(0, scrollPosition);
+                        }
+                    }, 0);
+                }, { once: true });
+            })();
+
             // Drag-to-scroll for horizontal lists
             (function () {
                 const containers = document.querySelectorAll('.drag-scroll');
