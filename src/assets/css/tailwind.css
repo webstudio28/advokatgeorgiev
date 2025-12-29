@@ -104,7 +104,7 @@
     }
 
     .btn-brand-dark {
-        @apply inline-flex items-center justify-center rounded-md bg-neutral-900 text-neutral-100 font-semibold px-4 py-2 shadow-sm hover:shadow-md transition;
+        @apply inline-flex items-center justify-center rounded-xl bg-brand-primary text-neutral-100 font-semibold px-8 py-2 shadow-sm hover:shadow-md transition;
     }
 
     /* Typography helpers (avoid repeating font/size/weight everywhere) */

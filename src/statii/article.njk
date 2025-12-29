@@ -8,17 +8,19 @@ permalink: "/statii/{{ article.slug }}/"
 eleventyComputed:
   title: "{{ article.meta.title }}"
   description: "{{ article.meta.description }}"
+bodyClass: "text-neutral-900 font-sans"
+bodyStyle: "background: #F7F5F2;"
 ---
 
 <section class="section-padding">
   <div class="container-custom">
-    <article>
+    <article class="bg-[#F7F5F2] text-neutral-900 ">
       <header class="mb-8">
-        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-100 mb-4">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
           {{ article.hero.title }}
         </h1>
         
-        <div class="flex items-center gap-4 text-sm text-neutral-400 mb-6">
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-neutral-600 mb-6">
           {% if article.author %}
             <span>Автор: {{ article.author }}</span>
           {% endif %}
@@ -26,24 +28,24 @@ eleventyComputed:
             <span>{{ article.date | formatDate }}</span>
           {% endif %}
           {% if article.category %}
-            <span class="text-brand-accent">{{ article.category }}</span>
+            <span class="text-neutral-700">{{ article.category }}</span>
           {% endif %}
         </div>
 
         {% if article.hero.image %}
-          <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-900 mb-8">
+          <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-200 mb-8">
             <img src="{{ article.hero.image | url }}" alt="{{ article.title }}" class="w-full h-full object-cover">
           </div>
         {% endif %}
 
         {% if article.hero.subtitle %}
-          <p class="text-lg text-neutral-300 leading-relaxed">
+          <p class="text-lg text-neutral-700 leading-relaxed">
             {{ article.hero.subtitle }}
           </p>
         {% endif %}
       </header>
 
-      <div class="article-content">
+      <div class="article-content article-content--light">
         {% if article.content.contentPath %}
           {% set contentPath = "src/" ~ article.content.contentPath %}
           {% set markdownContent = contentPath | readFile %}

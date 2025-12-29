@@ -96,7 +96,7 @@
 
 
     </head>
-    <body class="text-neutral-100 font-sans" style="background: linear-gradient(to bottom, #2A2A2A, #212121);">
+    <body class="{{ bodyClass or 'text-neutral-100 font-sans' }}" style="{{ bodyStyle or 'background: linear-gradient(to bottom, #2A2A2A, #212121);' }}">
         <!-- Header -->
         <header class="fixed top-0 left-0 right-0 z-50 header-custom">
             <div class="container-custom flex items-center justify-between gap-3 p-4 min-h-16">
@@ -177,13 +177,13 @@
         </main>
 
         {% if site.footer and site.footer.ctaStrip %}
-            <section class="bg-brand-accent text-neutral-900">
-                <div class="container-custom py-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <section class="bg-brand-secondary text-neutral-900">
+                <div class="container-custom py-10 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div class="min-w-0">
-                        <div class="text-base font-semibold">{{ site.footer.ctaStrip.title }}</div>
-                        <div class="text-sm text-neutral-800/80">{{ site.footer.ctaStrip.subtitle }}</div>
+                        <div class="text-2xl font-semibold">{{ site.footer.ctaStrip.title }}</div>
+                        <div class="text-lg text-neutral-800/80">{{ site.footer.ctaStrip.subtitle }}</div>
                     </div>
-                    <a href="{{ site.footer.ctaStrip.buttonUrl | url }}" class="btn-brand-dark w-full md:w-auto">
+                    <a href="{{ site.footer.ctaStrip.buttonUrl | url }}" class="btn-brand-dark w-auto">
                         {{ site.footer.ctaStrip.buttonLabel }}
                     </a>
                 </div>
