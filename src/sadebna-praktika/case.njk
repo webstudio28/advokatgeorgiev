@@ -1,0 +1,59 @@
+---
+layout: base.njk
+pagination:
+  data: sadebnaPraktika
+  size: 1
+  alias: case
+permalink: "/sadebna-praktika/{{ case.slug }}/"
+eleventyComputed:
+  title: "{{ case.meta.title }}"
+  description: "{{ case.meta.description }}"
+---
+eleventyComputed:
+  title: "{{ case.meta.title }}"
+  description: "{{ case.meta.description }}"
+---
+
+<section class="section-padding">
+  <div class="container-custom">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-100 mb-4">
+      {{ case.hero.title }}
+    </h1>
+    
+    <p class="text-lg text-neutral-300 mb-8">
+      {{ case.hero.subtitle }}
+    </p>
+
+    <div class="prose prose-invert max-w-none">
+      <div class="text-base text-neutral-300 leading-relaxed mb-8">
+        {{ case.content.longDescription }}
+      </div>
+
+      {% if case.content.sections %}
+        <div class="space-y-6 mb-8">
+          {% for section in case.content.sections %}
+            <div>
+              <h2 class="text-xl font-semibold text-neutral-100 mb-2">{{ section.title }}</h2>
+              <p class="text-neutral-300">{{ section.content }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if case.features %}
+        <div class="mt-8">
+          <h2 class="text-xl font-semibold text-neutral-100 mb-4">Услуги</h2>
+          <ul class="space-y-2">
+            {% for feature in case.features %}
+              <li class="text-neutral-300 flex items-start gap-2">
+                <span class="text-brand-secondary mt-1">•</span>
+                <span>{{ feature }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+

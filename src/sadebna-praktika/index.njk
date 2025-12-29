@@ -1,0 +1,29 @@
+---
+layout: base.njk
+title: Съдебна практика
+description: Професионална съдебна практика и защита на правата на пострадалите.
+---
+
+<section class="section-padding">
+  <div class="container-custom">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-100 mb-6">Съдебна практика</h1>
+    
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {% for item in sadebnaPraktika %}
+        <a href="{{ ('/sadebna-praktika/' ~ item.slug ~ '/') | url }}" class="group flex flex-col rounded-2xl border border-white/10 bg-neutral-700/50 p-6 shadow-lg hover:bg-neutral-700/60 transition">
+          <div class="text-xl font-semibold text-neutral-100 mb-3">
+            {{ item.title }}
+          </div>
+          <div class="text-sm text-neutral-400 leading-relaxed flex-1">
+            {{ item.content.shortDescription }}
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+            <span class="text-sm text-neutral-300/80">Виж повече</span>
+            <span class="text-neutral-300/80 text-lg transition group-hover:translate-x-0.5">→</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+

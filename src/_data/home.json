@@ -81,35 +81,8 @@
     "title": "Сфери на дейност"
   },
   "courtPractice": {
-    "eyebrow": "Съдебна практика",
-    "title": "Категории казуси",
-    "items": [
-      {
-        "title": "Пострадали със среднотелесна повреда",
-        "text": "Кратко описание (placeholder).",
-        "url": "/sadebna-praktika/"
-      },
-      {
-        "title": "Тежко пострадали",
-        "text": "Кратко описание (placeholder).",
-        "url": "/sadebna-praktika/"
-      },
-      {
-        "title": "Имуществени вреди",
-        "text": "Кратко описание (placeholder).",
-        "url": "/sadebna-praktika/"
-      },
-      {
-        "title": "Наследници на починали от злополуки",
-        "text": "Кратко описание (placeholder).",
-        "url": "/sadebna-praktika/"
-      },
-      {
-        "title": "Актуална съдебна практика по години",
-        "text": "Кратко описание (placeholder).",
-        "url": "/sadebna-praktika/"
-      }
-    ]
+    "eyebrow": "",
+    "title": "Съдебна практика"
   },
   "articles": {
     "eyebrow": "Статии",
