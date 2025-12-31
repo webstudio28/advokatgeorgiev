@@ -9,10 +9,6 @@ eleventyComputed:
   title: "{{ case.meta.title }}"
   description: "{{ case.meta.description }}"
 ---
-eleventyComputed:
-  title: "{{ case.meta.title }}"
-  description: "{{ case.meta.description }}"
----
 
 <section class="section-padding">
   <div class="container-custom">
@@ -24,36 +20,202 @@ eleventyComputed:
       {{ case.hero.subtitle }}
     </p>
 
-    <div class="article-content">
-      <div class="text-base text-neutral-300 leading-relaxed mb-8">
-        {{ case.content.longDescription }}
-      </div>
+    {% set categoryPdfs = sadebnaPraktikaPdfs[case.slug] %}
+    {% if case.slug == 'aktualna-praktika' %}
+      {# Tabbed interface for aktualna-praktika #}
+      {% set aktualnaData = aktualnaPraktikaByYear %}
+      {% if aktualnaData.years and aktualnaData.years.length > 0 %}
+        <div class="aktualna-praktika-tabs">
+          {# Year tabs #}
+          <div class="flex flex-wrap gap-2 mb-6 border-b border-white/10 pb-4">
+            {% for year in aktualnaData.years %}
+              <button
+                type="button"
+                class="year-tab-btn px-4 py-2 rounded-lg text-sm font-medium transition {% if loop.index0 == 0 %}bg-brand-secondary/20 text-brand-secondary border border-brand-secondary/30{% else %}text-neutral-400 hover:text-neutral-200 border border-transparent{% endif %}"
+                data-year="{{ year }}"
+                {% if loop.index0 == 0 %}aria-selected="true"{% else %}aria-selected="false"{% endif %}
+              >
+                {{ year }}
+              </button>
+            {% endfor %}
+          </div>
 
-      {% if case.content.sections %}
-        <div class="space-y-6 mb-8">
-          {% for section in case.content.sections %}
-            <div>
-              <h2 class="text-xl font-semibold text-neutral-100 mb-2">{{ section.title }}</h2>
-              <p class="text-neutral-300">{{ section.content }}</p>
+          {# Documents grouped by year #}
+          {% for year in aktualnaData.years %}
+            {% set yearDocs = aktualnaData.documentsByYear[year] %}
+            <div class="year-content {% if loop.index0 != 0 %}hidden{% endif %}" data-year="{{ year }}">
+              <div class="space-y-6">
+                {% for pdf in yearDocs %}
+                  {% set isFirst = loop.index0 == 0 %}
+                  <div class="rounded-2xl border border-white/10 bg-neutral-900/35 p-4 md:p-6 shadow-[0px_4px_18px_0px_rgba(0,0,0,0.35)]" data-pdf-index="{{ loop.index0 }}">
+                    <div class="flex justify-between items-center flex-col gap-4 md:flex-row mb-4">
+                      {% if not isFirst %}
+                        <button 
+                          type="button"
+                          class="pdf-toggle-btn text-base text-neutral-400 hover:text-neutral-200 transition flex items-center gap-2"
+                          data-target="{{ loop.index0 }}"
+                          aria-expanded="false"
+                        >
+                          <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                          </svg>
+                          <span>Покажи документ</span>
+                        </button>
+                      {% else %}
+                        <span></span>
+                      {% endif %}
+                      <a href="{{ pdf.url | url }}" target="_blank" rel="noopener" class="btn-brand w-full sm:w-auto">
+                        Отвори / Изтегли PDF
+                      </a>
+                    </div>
+
+                    <div class="pdf-viewer {% if not isFirst %}hidden{% endif %}">
+                      <div class="overflow-hidden rounded-xl border border-white/10 bg-neutral-950/30">
+                        <iframe
+                          src="{{ pdf.url | url }}"
+                          class="w-full h-[520px] md:h-[680px]"
+                          style="border:0;"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
             </div>
           {% endfor %}
         </div>
-      {% endif %}
 
-      {% if case.features %}
-        <div class="mt-8">
-          <h2 class="text-xl font-semibold text-neutral-100 mb-4">Услуги</h2>
-          <ul class="space-y-2">
-            {% for feature in case.features %}
-              <li class="text-neutral-300 flex items-start gap-2">
-                <span class="text-brand-secondary mt-1">•</span>
-                <span>{{ feature }}</span>
-              </li>
-            {% endfor %}
-          </ul>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            // Year tab switching
+            const yearTabs = document.querySelectorAll('.year-tab-btn');
+            yearTabs.forEach(tab => {
+              tab.addEventListener('click', function() {
+                const selectedYear = this.getAttribute('data-year');
+                
+                // Update tab states
+                yearTabs.forEach(t => {
+                  t.setAttribute('aria-selected', 'false');
+                  t.classList.remove('bg-brand-secondary/20', 'text-brand-secondary', 'border-brand-secondary/30');
+                  t.classList.add('text-neutral-400', 'border-transparent');
+                });
+                this.setAttribute('aria-selected', 'true');
+                this.classList.add('bg-brand-secondary/20', 'text-brand-secondary', 'border-brand-secondary/30');
+                this.classList.remove('text-neutral-400', 'border-transparent');
+                
+                // Show/hide year content
+                document.querySelectorAll('.year-content').forEach(content => {
+                  if (content.getAttribute('data-year') === selectedYear) {
+                    content.classList.remove('hidden');
+                  } else {
+                    content.classList.add('hidden');
+                  }
+                });
+              });
+            });
+
+            // PDF toggle buttons
+            const toggleButtons = document.querySelectorAll('.pdf-toggle-btn');
+            toggleButtons.forEach(btn => {
+              btn.addEventListener('click', function() {
+                const container = this.closest('[data-pdf-index]');
+                const viewer = container.querySelector('.pdf-viewer');
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                
+                if (isExpanded) {
+                  viewer.classList.add('hidden');
+                  this.setAttribute('aria-expanded', 'false');
+                  this.querySelector('span').textContent = 'Покажи документ';
+                  this.querySelector('svg').classList.remove('rotate-180');
+                } else {
+                  viewer.classList.remove('hidden');
+                  this.setAttribute('aria-expanded', 'true');
+                  this.querySelector('span').textContent = 'Скрий документ';
+                  this.querySelector('svg').classList.add('rotate-180');
+                }
+              });
+            });
+          });
+        </script>
+      {% else %}
+        <div class="rounded-2xl border border-white/10 bg-neutral-900/35 p-6 text-center">
+          <p class="text-neutral-400">Няма налични документи за тази категория.</p>
         </div>
       {% endif %}
-    </div>
+    {% else %}
+      {# Regular category view #}
+      {% if categoryPdfs and categoryPdfs.length > 0 %}
+        <div class="space-y-6">
+          {% for pdf in categoryPdfs %}
+            {% set isFirst = loop.index0 == 0 %}
+            <div class="rounded-2xl border border-white/10 bg-neutral-900/35 p-4 md:p-6 shadow-[0px_4px_18px_0px_rgba(0,0,0,0.35)]" data-pdf-index="{{ loop.index0 }}">
+              <div class="flex justify-between items-center flex-col gap-4 md:flex-row mb-4">
+                {% if not isFirst %}
+                  <button 
+                    type="button"
+                    class="pdf-toggle-btn text-base text-neutral-400 hover:text-neutral-200 transition flex items-center gap-2"
+                    data-target="{{ loop.index0 }}"
+                    aria-expanded="false"
+                  >
+                    <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                    <span>Покажи документ</span>
+                  </button>
+                {% else %}
+                  <span></span>
+                {% endif %}
+                <a href="{{ pdf.url | url }}" target="_blank" rel="noopener" class="btn-brand w-full sm:w-auto">
+                  Отвори / Изтегли PDF
+                </a>
+              </div>
+
+              <div class="pdf-viewer {% if not isFirst %}hidden{% endif %}">
+                <div class="overflow-hidden rounded-xl border border-white/10 bg-neutral-950/30">
+                  <iframe
+                    src="{{ pdf.url | url }}"
+                    class="w-full h-[520px] md:h-[680px]"
+                    style="border:0;"
+                    loading="lazy"
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.pdf-toggle-btn');
+            toggleButtons.forEach(btn => {
+              btn.addEventListener('click', function() {
+                const targetIndex = this.getAttribute('data-target');
+                const container = this.closest('[data-pdf-index]');
+                const viewer = container.querySelector('.pdf-viewer');
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                
+                if (isExpanded) {
+                  viewer.classList.add('hidden');
+                  this.setAttribute('aria-expanded', 'false');
+                  this.querySelector('span').textContent = 'Покажи документ';
+                  this.querySelector('svg').classList.remove('rotate-180');
+                } else {
+                  viewer.classList.remove('hidden');
+                  this.setAttribute('aria-expanded', 'true');
+                  this.querySelector('span').textContent = 'Скрий документ';
+                  this.querySelector('svg').classList.add('rotate-180');
+                }
+              });
+            });
+          });
+        </script>
+      {% else %}
+        <div class="rounded-2xl border border-white/10 bg-neutral-900/35 p-6 text-center">
+          <p class="text-neutral-400">Няма налични документи за тази категория.</p>
+        </div>
+      {% endif %}
+    {% endif %}
   </div>
 </section>
 

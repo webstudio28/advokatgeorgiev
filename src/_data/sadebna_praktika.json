@@ -12,6 +12,15 @@
         "subtitle": "Правна помощ и защита за пострадали със среднотелесна повреда.",
         "image": "/assets/images/sadebna-praktika/srednotelezna-povreda.jpg"
       },
+      "pdf": {
+        "label": "Примерно съдебно решение (PDF)",
+        "url": "/assets/sadebna-praktika/postradal-2023-potvurjdava.pdf"
+      },
+      "children": [
+        { "title": "Случай #1 (placeholder)", "url": "#" },
+        { "title": "Случай #2 (placeholder)", "url": "#" },
+        { "title": "Случай #3 (placeholder)", "url": "#" }
+      ],
       "content": {
         "shortDescription": "Кратко описание (placeholder).",
         "longDescription": "По-подробно описание за случаите с пострадали със среднотелесна повреда. Като адвокат с опит в тази област, предлагам професионална правна помощ и защита на правата на пострадалите.",
@@ -45,6 +54,11 @@
         "subtitle": "Правна помощ и защита за тежко пострадали.",
         "image": "/assets/images/sadebna-praktika/tezhko-postradali.jpg"
       },
+      "children": [
+        { "title": "Случай #1 (placeholder)", "url": "#" },
+        { "title": "Случай #2 (placeholder)", "url": "#" },
+        { "title": "Случай #3 (placeholder)", "url": "#" }
+      ],
       "content": {
         "shortDescription": "Кратко описание (placeholder).",
         "longDescription": "По-подробно описание за случаите с тежко пострадали. Като адвокат с опит в тази област, предлагам професионална правна помощ и защита на правата на тежко пострадалите.",
@@ -78,6 +92,11 @@
         "subtitle": "Правна помощ и защита при имуществени вреди.",
         "image": "/assets/images/sadebna-praktika/imushtestveni-vredi.jpg"
       },
+      "children": [
+        { "title": "Случай #1 (placeholder)", "url": "#" },
+        { "title": "Случай #2 (placeholder)", "url": "#" },
+        { "title": "Случай #3 (placeholder)", "url": "#" }
+      ],
       "content": {
         "shortDescription": "Кратко описание (placeholder).",
         "longDescription": "По-подробно описание за случаите с имуществени вреди. Като адвокат с опит в тази област, предлагам професионална правна помощ и защита на правата при имуществени вреди.",
@@ -111,6 +130,11 @@
         "subtitle": "Правна помощ и защита за наследници на починали от злополуки.",
         "image": "/assets/images/sadebna-praktika/naslednitsi-zlopoluki.jpg"
       },
+      "children": [
+        { "title": "Случай #1 (placeholder)", "url": "#" },
+        { "title": "Случай #2 (placeholder)", "url": "#" },
+        { "title": "Случай #3 (placeholder)", "url": "#" }
+      ],
       "content": {
         "shortDescription": "Кратко описание (placeholder).",
         "longDescription": "По-подробно описание за случаите с наследници на починали от злополуки. Като адвокат с опит в тази област, предлагам професионална правна помощ и защита на правата на наследниците.",
@@ -144,6 +168,11 @@
         "subtitle": "Преглед на важни съдебни решения и практика.",
         "image": "/assets/images/sadebna-praktika/aktualna-praktika.jpg"
       },
+      "children": [
+        { "title": "2024 (placeholder)", "url": "#" },
+        { "title": "2023 (placeholder)", "url": "#" },
+        { "title": "2022 (placeholder)", "url": "#" }
+      ],
       "content": {
         "shortDescription": "Кратко описание (placeholder).",
         "longDescription": "По-подробно описание за актуалната съдебна практика по години. Преглед на важни съдебни решения, тълкувания и практика в различните области на правото.",

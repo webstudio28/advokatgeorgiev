@@ -20,7 +20,10 @@
         </style>
 
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | url }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ '/logo.png' | url }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ '/logo.png' | url }}">
+        <link rel="shortcut icon" type="image/png" href="{{ '/logo.png' | url }}">
+        <link rel="apple-touch-icon" href="{{ '/logo.png' | url }}">
         <link rel="canonical" href="{{ site.seo.siteUrl }}{{ page.url | url }}">
 
         <!-- Fonts -->
@@ -194,9 +197,12 @@
             <div class="container-custom py-10">
                 <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
                     <div>
-                        <div class="text-brand-secondary text-sm font-medium leading-none">
-                            {{ site.brand.name | replace(' ', '<br/>') | safe }}
-                        </div>
+                        <a href="{{ '/' | url }}" class="inline-flex items-center gap-3">
+                            <img src="{{ site.brand.logo.footer | url }}" alt="{{ site.brand.logo.alt | default(site.brand.name) }}" class="h-12 w-12 object-contain">
+                            <div class="text-brand-secondary text-sm font-medium font-serif leading-[1.05]">
+                                {{ site.brand.name | replace(' ', '<br/>') | safe }}
+                            </div>
+                        </a>
                         {% if site.footer and site.footer.about %}
                             <p class="mt-3 text-sm text-neutral-400 leading-relaxed">
                                 {{ site.footer.about }}
