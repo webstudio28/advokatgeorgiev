@@ -5,6 +5,7 @@ pagination:
   size: 1
   alias: service
 permalink: "/uslugi/{{ service.slug }}/"
+hideFooterCta: true
 eleventyComputed:
   title: "{{ service.meta.title }}"
   description: "{{ service.meta.description }}"
@@ -12,43 +13,80 @@ eleventyComputed:
 
 <section class="section-padding">
   <div class="container-custom">
-    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-100 mb-4">
-      {{ service.hero.title }}
-    </h1>
-    
-    <p class="text-lg text-neutral-300 mb-8">
-      {{ service.hero.subtitle }}
-    </p>
+    <!-- Hero Section -->
+    <div class="mb-12">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-100 mb-4">
+        {{ service.hero.title }}
+      </h1>
+      
+      <p class="text-lg md:text-xl text-neutral-300 leading-relaxed max-w-3xl">
+        {{ service.hero.subtitle }}
+      </p>
+    </div>
 
-    <div class="article-content">
-      <div class="text-base text-neutral-300 leading-relaxed mb-8">
-        {{ service.content.longDescription }}
+    <!-- Main Description Box -->
+    {% if service.content.longDescription %}
+    <div class="rounded-2xl border border-white/10 bg-neutral-900/30 p-6 md:p-8 mb-8 shadow-lg">
+      <div class="article-content">
+        <div class="text-base md:text-lg text-neutral-300 leading-relaxed">
+          {{ service.content.longDescription }}
+        </div>
       </div>
+    </div>
+    {% endif %}
 
-      {% if service.content.sections %}
-        <div class="space-y-6 mb-8">
-          {% for section in service.content.sections %}
-            <div>
-              <h2 class="text-xl font-semibold text-neutral-100 mb-2">{{ section.title }}</h2>
-              <p class="text-neutral-300">{{ section.content }}</p>
+    <!-- Sections in Boxes -->
+    {% if service.content.sections %}
+      <div class="grid gap-6 md:gap-8 mb-8 md:grid-cols-2">
+        {% for section in service.content.sections %}
+          <div class="rounded-2xl border border-white/10 bg-neutral-900/30 p-6 shadow-lg hover:bg-neutral-900/45 transition">
+            <h2 class="text-xl md:text-2xl font-semibold text-neutral-100 mb-3">
+              {{ section.title }}
+            </h2>
+            <p class="text-neutral-300 leading-relaxed">
+              {{ section.content }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Features in Smaller Boxes -->
+    {% if service.features %}
+      <div class="mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-100 mb-6">Предлагани услуги</h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {% for feature in service.features %}
+            <div class="rounded-xl border border-white/10 bg-neutral-900/30 p-4 shadow-md hover:bg-neutral-900/45 hover:border-brand-secondary/30 transition group">
+              <div class="flex items-start gap-3">
+                <div class="flex-shrink-0 mt-0.5">
+                  <div class="w-2 h-2 rounded-full bg-brand-secondary group-hover:scale-125 transition"></div>
+                </div>
+                <p class="text-neutral-300 text-sm md:text-base leading-relaxed">
+                  {{ feature }}
+                </p>
+              </div>
             </div>
           {% endfor %}
         </div>
-      {% endif %}
+      </div>
+    {% endif %}
 
-      {% if service.features %}
-        <div class="mt-8">
-          <h2 class="text-xl font-semibold text-neutral-100 mb-4">Услуги</h2>
-          <ul class="space-y-2">
-            {% for feature in service.features %}
-              <li class="text-neutral-300 flex items-start gap-2">
-                <span class="text-brand-secondary mt-1">•</span>
-                <span>{{ feature }}</span>
-              </li>
-            {% endfor %}
-          </ul>
+    <!-- Call to Action Box -->
+    <div class="rounded-2xl border border-brand-secondary/30 bg-gradient-to-br from-neutral-900/50 to-neutral-800/50 p-6 md:p-8 shadow-lg">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h3 class="text-xl md:text-2xl font-semibold text-neutral-100 mb-2">
+            Имате нужда от правна помощ?
+          </h3>
+          <p class="text-neutral-300">
+            Свържете се с нас за консултация и професионална правна защита
+          </p>
         </div>
-      {% endif %}
+        <a href="{{ '/kontakti/' | url }}" class="btn-brand bg-brand-secondary text-brand-primary text-sm font-medium px-6 py-3 rounded-xl hover:bg-brand-secondary/90 transition whitespace-nowrap">
+          Свържете се с нас
+        </a>
+      </div>
     </div>
   </div>
 </section>

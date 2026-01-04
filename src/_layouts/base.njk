@@ -179,7 +179,7 @@
             {{ content | safe }}
         </main>
 
-        {% if site.footer and site.footer.ctaStrip %}
+        {% if site.footer and site.footer.ctaStrip and not hideFooterCta %}
             <section class="bg-brand-secondary text-neutral-900">
                 <div class="container-custom py-10 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div class="min-w-0">
