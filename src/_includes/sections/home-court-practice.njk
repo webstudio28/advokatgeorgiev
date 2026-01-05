@@ -5,18 +5,20 @@
   <div class="container-custom">
     {{ sectionHeader(home.courtPractice.eyebrow, home.courtPractice.title, null) }}
 
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {% for item in sadebnaPraktika %}
-        <a href="{{ ('/sadebna-praktika/' ~ item.slug ~ '/') | url }}" class="group flex flex-col rounded-2xl bg-neutral-700/50 border border-white/10 p-5 shadow-[0px_2px_16px_0px_rgba(0,0,0,0.25)] hover:bg-neutral-700/60 transition">
-          <div class="text-base font-semibold text-neutral-100 flex-1">
-            {{ item.title }}
-          </div>
-          <div class="mt-4 pt-2 border-t flex items-center justify-between" style="border-color: rgba(221, 221, 221, 0.2);">
-            <span class="text-sm text-gray-300">Виж повече</span>
-            <span class="text-brand-accent text-lg transition group-hover:translate-x-0.5">→</span>
-          </div>
-        </a>
-      {% endfor %}
+    <div class="mt-8 overflow-x-auto lg:overflow-x-visible scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4">
+      <div class="flex gap-4 lg:contents">
+        {% for item in sadebnaPraktika %}
+          <a href="{{ ('/sadebna-praktika/' ~ item.slug ~ '/') | url }}" class="group flex flex-col rounded-2xl bg-neutral-700/50 border border-white/10 p-5 shadow-[0px_2px_16px_0px_rgba(0,0,0,0.25)] hover:bg-neutral-700/60 transition min-w-[280px] lg:min-w-0">
+            <div class="text-base font-semibold text-neutral-100 flex-1">
+              {{ item.title }}
+            </div>
+            <div class="mt-4 pt-2 border-t flex items-center justify-between" style="border-color: rgba(221, 221, 221, 0.2);">
+              <span class="text-sm text-gray-300">Виж повече</span>
+              <span class="text-brand-accent text-lg transition group-hover:translate-x-0.5">→</span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>

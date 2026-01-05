@@ -3,8 +3,8 @@
 
 <section class="section-padding bg-gradient-to-r from-[#2A2A2A] to-[#212121]">
   <div class="container-custom">
-    <div class="grid gap-8 lg:grid-cols-2 lg:items-center">
-      <div class="relative">
+    <div class="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:items-center">
+      <div class="relative order-2 lg:order-1">
         <div class="overflow-hidden rounded-2xl bg-neutral-900/40 shadow-xl">
           <img src="{{ home.about.image.src }}" alt="{{ home.about.image.alt }}" class="w-full h-full object-cover">
         </div>
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="space-y-6">
+      <div class="space-y-6 order-1 lg:order-2">
         {{ sectionHeader(home.about.eyebrow, home.about.title, home.about.text) }}
 
         <div class="space-y-2">

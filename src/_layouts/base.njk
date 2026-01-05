@@ -244,6 +244,9 @@
                                     </button>
                                     <div class="mobile-dropdown-content hidden mt-2 pl-4 space-y-2">
                                         {% if item.label == "Услуги" %}
+                                            <a href="{{ '/uslugi/' | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
+                                                Всички услуги
+                                            </a>
                                             {% for service in uslugi.items %}
                                                 <a href="{{ ('/uslugi/' ~ service.slug ~ '/') | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
                                                     {{ service.title }}
@@ -251,6 +254,9 @@
                                             {% endfor %}
                                         {% endif %}
                                         {% if item.label == "Съдебна практика" %}
+                                            <a href="{{ '/sadebna-praktika/' | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
+                                                Всички случаи
+                                            </a>
                                             {% for practice in sadebnaPraktika %}
                                                 <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
                                                     {{ practice.title }}
@@ -322,7 +328,19 @@
                             <div>
                                 <div class="text-sm font-semibold text-neutral-200">{{ col.title }}</div>
                                 <div class="mt-3 flex flex-col gap-2 text-sm text-neutral-400">
-                                    {% if col.links %}
+                                    {% if col.title == "Услуги" %}
+                                        {% for service in uslugi.items %}
+                                            <a href="{{ ('/uslugi/' ~ service.slug ~ '/') | url }}" class="hover:text-neutral-200 transition">
+                                                {{ service.title }}
+                                            </a>
+                                        {% endfor %}
+                                    {% elif col.title == "Съдебна практика" %}
+                                        {% for practice in sadebnaPraktika %}
+                                            <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="hover:text-neutral-200 transition">
+                                                {{ practice.title }}
+                                            </a>
+                                        {% endfor %}
+                                    {% elif col.links %}
                                         {% for link in col.links %}
                                             <a href="{{ link.url | url }}" class="hover:text-neutral-200 transition">
                                                 {{ link.label }}
