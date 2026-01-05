@@ -20,7 +20,7 @@
         <div class="flex-1 flex flex-col items-center justify-center sm:items-start space-y-4">
 
           <h1 class="t-hero-title leading-none sm:leading-[0.7]">
-            <span class="block text-white text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none">
+            <span class="block text-white text-4xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none">
               {{ home.hero.prefix }}
             </span>
             <span class="block mt-1 sm:mt-0 text-brand-secondary text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold tracking-wide leading-none">
@@ -50,9 +50,13 @@
           </div>
         </div>
 
-          <div class="w-full max-w-xl flex justify-center sm:justify-start">
-            <a href="{{ home.hero.ctaUrl | url }}" class="btn-brand w-auto text-xs px-3 py-1.5 rounded-lg sm:w-full sm:text-base sm:px-4 sm:py-2 sm:rounded-xl">
+          <!-- CTAs (all breakpoints) -->
+          <div class="w-full max-w-xl lg:max-w-full flex justify-center sm:justify-start gap-3">
+            <button onclick="openInquiryModal()" class="btn-brand w-auto lg:w-1/2 text-xs px-3 py-1.5 rounded-lg sm:text-base sm:px-4 sm:py-2 sm:rounded-xl">
               {{ home.hero.ctaLabel }}
+            </button>
+            <a href="{{ '/kontakti/' | url }}" class="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/5 text-white font-semibold w-auto lg:w-1/2 text-xs px-3 py-1.5 hover:bg-white/10 transition sm:text-base sm:px-4 sm:py-2 sm:rounded-xl">
+              Контакти
             </a>
           </div>
         </div>
