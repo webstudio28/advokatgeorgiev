@@ -52,6 +52,10 @@ html {
     scroll-behavior: smooth;
 }
 
+.hero-image img {
+
+}
+
 /* ------------------------------------------------------------
    Article / long-form typography (used for markdown content)
    ------------------------------------------------------------ */

@@ -1,14 +1,14 @@
 {# Home: Hero #}
 
-<section class="relative overflow-hidden text-white min-h-screen flex items-center bg-brand-primary">
+<section class="hero-section relative overflow-hidden text-white min-h-screen flex items-center bg-brand-primary">
   <div class="absolute inset-0 w-full h-full">
     <img src="{{ '/assets/images/hero-bg.jpg' | url }}" alt="" class="w-full h-full object-cover opacity-70">
   </div>
   <div class="absolute inset-0 bg-gradient-to-r from-[#121212]/70 to-[#131313]/100"></div>
 
-  <div class="relative container-custom w-full flex items-center py-10 z-1000">
-    <div class="w-full flex flex-col md:flex-row gap-8 md:items-center">
-      <div class="space-y-4  w-full sm:w-[50%] ">
+  <div class="hero-content  relative container-custom w-full h-full flex items-center z-1000">
+    <div class="hero-inner-content relative  w-full h-full flex items-center">
+      <div class="hero-data space-y-4 w-1/2">
           <div class="inline-flex items-center gap-2 rounded-full text-brand-accent border border-brand-secondary px-6 py-1" style="background-color: rgba(222, 173, 121, 0.2);">
           <span class="text-sm md:text-base font-light">{{ home.hero.eyebrow }}</span>
         </div>
@@ -47,18 +47,13 @@
         </div>
       </div>
 
-      {# Image container for mobile only #}
-      <div class="w-full sm:w-[50%] md:hidden flex justify-center relative">
-        <div class="w-full max-w-sm flex flex-col justify-end overflow-hidden ">
-          <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="w-full object-cover object-bottom">
+      {# Image container - desktop 50% width #}
+      <div class="hero-image w-1/2 flex flex-col justify-center items-center relative h-full">
+        <div class="hero-image-container w-full h-full max-h-[700px] flex items-center justify-center overflow-hidden relative mt-[20%]">
+          <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class=" h-full w-auto object-contain object-bottom">
         </div>
       </div>
     </div>
-  </div>
-
-  {# Image positioned absolutely relative to hero section (desktop only) #}
-  <div class="hidden md:block absolute bottom-0 left-auto translate-x-0 right-[max(1rem,calc((100%-1280px)/2))] h-[50vh] lg:h-[80vh] w-auto overflow-hidden z-10">
-    <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="h-full w-auto object-cover object-bottom">
   </div>
 </section>
 
