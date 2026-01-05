@@ -17,6 +17,19 @@
                 --color-brand-secondary: {{ site.colors.secondary | default('#DEAD79') }};
                 --color-brand-accent: {{ site.colors.accent | default('#DDDDDD') }};
             }
+            
+            /* Hamburger to X transformation */
+            #mobile-menu-toggle.menu-open #hamburger-line-1 {
+                transform: rotate(45deg) translate(0, 6px);
+                transform-origin: center;
+            }
+            #mobile-menu-toggle.menu-open #hamburger-line-2 {
+                opacity: 0;
+            }
+            #mobile-menu-toggle.menu-open #hamburger-line-3 {
+                transform: rotate(-45deg) translate(0, -6px);
+                transform-origin: center;
+            }
         </style>
 
         <!-- Favicon -->
@@ -59,34 +72,69 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const toggle = document.getElementById('mobile-menu-toggle');
                 const menu = document.getElementById('mobile-menu');
-                const closeBtn = document.getElementById('mobile-menu-close');
-                const body = document.body;
 
                 const open = () => {
                     if (!menu) return;
                     menu.classList.remove('opacity-0', 'pointer-events-none');
-                    body.style.overflow = 'hidden';
+                    if (toggle) toggle.classList.add('menu-open');
                 };
 
                 const close = () => {
                     if (!menu) return;
                     menu.classList.add('opacity-0', 'pointer-events-none');
-                    body.style.overflow = '';
+                    if (toggle) toggle.classList.remove('menu-open');
                 };
 
-                if (toggle && menu) toggle.addEventListener('click', open);
-                if (closeBtn && menu) closeBtn.addEventListener('click', close);
+                if (toggle && menu) {
+                    toggle.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (menu.classList.contains('pointer-events-none')) {
+                            open();
+                        } else {
+                            close();
+                        }
+                    });
+                }
 
-                // Close when clicking backdrop
+                // Close when clicking outside the menu or on a navigation link
+                document.addEventListener('click', (e) => {
+                    if (menu && !menu.contains(e.target) && toggle && !toggle.contains(e.target) && !menu.classList.contains('pointer-events-none')) {
+                        close();
+                    }
+                });
+
+                // Close when clicking on navigation links
                 if (menu) {
-                    menu.addEventListener('click', (e) => {
-                        if (e.target === menu) close();
+                    const navLinks = menu.querySelectorAll('a');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            close();
+                        });
                     });
                 }
 
                 // Close on ESC
                 window.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') close();
+                });
+
+                // Mobile dropdown toggles
+                const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+                dropdownToggles.forEach(toggle => {
+                    toggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const dropdown = this.closest('.mobile-dropdown');
+                        const content = dropdown.querySelector('.mobile-dropdown-content');
+                        const icon = this.querySelector('svg');
+                        
+                        if (content.classList.contains('hidden')) {
+                            content.classList.remove('hidden');
+                            icon.style.transform = 'rotate(180deg)';
+                        } else {
+                            content.classList.add('hidden');
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    });
                 });
             });
         </script>
@@ -104,18 +152,57 @@
         <header class="fixed top-0 left-0 right-0 z-50 header-custom">
             <div class="container-custom flex items-center justify-between gap-3 p-4 min-h-16">
                 <a href="{{ '/' | url }}" class="flex items-center gap-2">
-                    <img src="{{ site.brand.logo.header | url }}" alt="{{ site.brand.logo.alt | default(site.brand.name) }}" class="h-14 w-14 object-contain">
-                    <div class="text-brand-secondary text-xl font-medium font-serif leading-[0.95]">
+                    <img src="{{ site.brand.logo.header | url }}" alt="{{ site.brand.logo.alt | default(site.brand.name) }}" class="h-10 w-10 lg:h-14 lg:w-14 object-contain">
+                    <div class="text-brand-secondary text-base lg:text-xl font-medium font-serif leading-[0.95]">
                         Божидар<br/>Георгиев
                     </div>
                 </a>
 
-                <nav class="hidden md:flex ml-6">
+                <nav class="hidden lg:flex ml-6">
                     <ul class="flex items-center gap-8 text-md color-brand-accent">
                         {% if site.navigation %}
                             {% for item in site.navigation %}
-                                <li>
-                                    <a href="{{ item.url | url }}" class="font-normal text-brand-accent hover:text-white transition">{{ item.label }}</a>
+                                <li class="relative group">
+                                    <a href="{{ item.url | url }}" class="font-normal text-brand-accent hover:text-white transition flex items-center gap-1">
+                                        {{ item.label }}
+                                        {% if item.label == "Услуги" or item.label == "Съдебна практика" %}
+                                            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        {% endif %}
+                                    </a>
+                                    
+                                    {% if item.label == "Услуги" %}
+                                        <div class="absolute top-full left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                            <div class="bg-neutral-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden">
+                                                <ul class="py-2">
+                                                    {% for service in uslugi.items %}
+                                                        <li>
+                                                            <a href="{{ ('/uslugi/' ~ service.slug ~ '/') | url }}" class="block px-4 py-3 text-brand-accent hover:bg-white/5 hover:text-white transition">
+                                                                {{ service.title }}
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if item.label == "Съдебна практика" %}
+                                        <div class="absolute top-full left-0 mt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                            <div class="bg-neutral-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden">
+                                                <ul class="py-2">
+                                                    {% for practice in sadebnaPraktika %}
+                                                        <li>
+                                                            <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block px-4 py-3 text-brand-accent hover:bg-white/5 hover:text-white transition">
+                                                                {{ practice.title }}
+                                                            </a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         {% endif %}
@@ -124,15 +211,17 @@
 
                 <div class=" flex items-center gap-2">
                     {% if site.headerCta %}
-                        <button onclick="openInquiryModal()" class="btn-brand bg-brand-secondary text-brand-primary hidden md:inline-flex text-sm font-medium px-8 py-1.5 rounded-xl">
+                        <button onclick="openInquiryModal()" class="btn-brand bg-brand-secondary text-brand-primary hidden lg:inline-flex text-sm font-medium px-8 py-1.5 rounded-xl">
                             {{ site.headerCta.label }}
                         </button>
                     {% endif %}
 
-                    <button id="mobile-menu-toggle" class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded bg-white/5 border border-white/10">
+                    <button id="mobile-menu-toggle" class="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded bg-transparent border-0">
                         <span class="sr-only">Меню</span>
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <svg class="h-6 w-6 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke-width="2.5" style="stroke: var(--color-brand-secondary);">
+                            <path id="hamburger-line-1" class="transition-all duration-200" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16"></path>
+                            <path id="hamburger-line-2" class="transition-all duration-200" stroke-linecap="round" stroke-linejoin="round" d="M4 12h16"></path>
+                            <path id="hamburger-line-3" class="transition-all duration-200" stroke-linecap="round" stroke-linejoin="round" d="M4 18h16"></path>
                         </svg>
                     </button>
                 </div>
@@ -140,35 +229,50 @@
         </header>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/70 opacity-0 pointer-events-none transition-opacity duration-200">
-            <div class="absolute right-0 top-0 h-full w-full max-w-sm bg-neutral-900 border-l border-white/10 p-6">
-                <div class="flex items-center justify-between">
-                    <div class="text-brand-secondary text-sm font-medium leading-none">
-                        {{ site.brand.name | replace(' ', '<br/>') | safe }}
-                    </div>
-                    <button id="mobile-menu-close" class="inline-flex h-9 w-9 items-center justify-center rounded bg-white/5 border border-white/10">
-                        <span class="sr-only">Затвори</span>
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-
-                <nav class="mt-8 flex flex-col gap-2 text-base">
+        <div id="mobile-menu" class="fixed top-16 left-0 right-0 z-[60] bg-neutral-900 border-b border-white/10 opacity-0 pointer-events-none transition-opacity duration-200 shadow-lg">
+            <div class="container-custom py-4">
+                <nav class="flex flex-col gap-2 text-base">
                     {% if site.navigation %}
                         {% for item in site.navigation %}
-                            <a href="{{ item.url | url }}" class="text-brand-accent rounded-lg border border-white/10 px-4 py-3 hover:bg-white/5 transition">
-                                {{ item.label }}
-                            </a>
+                            {% if item.label == "Услуги" or item.label == "Съдебна практика" %}
+                                <div class="mobile-dropdown">
+                                    <button class="mobile-dropdown-toggle w-full text-left text-brand-accent rounded-lg border border-white/10 px-4 py-3 hover:bg-white/5 transition flex items-center justify-between">
+                                        <span>{{ item.label }}</span>
+                                        <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </button>
+                                    <div class="mobile-dropdown-content hidden mt-2 pl-4 space-y-2">
+                                        {% if item.label == "Услуги" %}
+                                            {% for service in uslugi.items %}
+                                                <a href="{{ ('/uslugi/' ~ service.slug ~ '/') | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
+                                                    {{ service.title }}
+                                                </a>
+                                            {% endfor %}
+                                        {% endif %}
+                                        {% if item.label == "Съдебна практика" %}
+                                            {% for practice in sadebnaPraktika %}
+                                                <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
+                                                    {{ practice.title }}
+                                                </a>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a href="{{ item.url | url }}" class="text-brand-accent rounded-lg border border-white/10 px-4 py-3 hover:bg-white/5 transition">
+                                    {{ item.label }}
+                                </a>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 </nav>
 
                 {% if site.headerCta %}
-                    <div class="mt-6">
-                        <a href="{{ site.headerCta.url | url }}" class="btn-brand w-full">
+                    <div class="mt-4">
+                        <button onclick="openInquiryModal(); document.getElementById('mobile-menu').classList.add('opacity-0', 'pointer-events-none'); document.body.style.overflow = '';" class="btn-brand w-full">
                             {{ site.headerCta.label }}
-                        </a>
+                        </button>
                     </div>
                 {% endif %}
             </div>
