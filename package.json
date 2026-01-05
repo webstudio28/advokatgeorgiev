@@ -1,7 +1,7 @@
 {
-  "name": "frigobg",
+  "name": "advokatgeorgiev",
   "version": "1.0.0",
-  "description": "Frigo Express BG - Хладилен транспорт в Европа",
+  "description": "Адвокат Божидар Георгиев - Професионална правна помощ",
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
