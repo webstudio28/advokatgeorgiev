@@ -1,28 +1,38 @@
 {# Home: Hero #}
 
-<section class="hero-section relative overflow-hidden text-white min-h-screen flex items-center bg-brand-primary">
+<section class="hero-section relative overflow-hidden text-white min-h-screen flex items-start lg:items-center bg-brand-primary">
   <div class="absolute inset-0 w-full h-full">
-    <img src="{{ '/assets/images/hero-bg.jpg' | url }}" alt="" class="w-full h-full object-cover opacity-70">
+    <img src="{{ '/assets/images/hero-bg.jpg' | url }}" alt="" class="w-full h-full object-cover opacity-70 ">
   </div>
-  <div class="absolute inset-0 bg-gradient-to-r from-[#121212]/70 to-[#131313]/100"></div>
+  <div class="absolute inset-0 bg-gradient-to-r from-[#121212]/70 to-[#131313]/80"></div>
 
-  <div class="hero-content relative container-custom w-full h-full flex items-center z-1000">
-    <div class="border-2 border-red-500 hero-inner-content relative w-full h-full flex flex-col sm:flex-row items-center">
-      <div class="border-2 border-yellow-500 hero-data w-full h-[60%] sm:h-auto sm:w-1/2 flex flex-col items-center justify-center text-center sm:items-start sm:text-left space-y-4">
-          <div class="inline-flex items-center gap-2 rounded-full text-brand-accent border border-brand-secondary px-6 py-1" style="background-color: rgba(222, 173, 121, 0.2);">
-          <span class="text-sm md:text-base font-light">{{ home.hero.eyebrow }}</span>
+  <div class="hero-content relative container-custom w-full h-full flex items-start lg:items-center z-1000 box-border pt-10 sm:pt-0">
+    <div class=" hero-inner-content relative w-full h-full flex flex-col sm:flex-row items-center">
+      <div class="hero-data w-full h-[50%] sm:h-auto sm:w-1/2 flex flex-col text-center sm:text-left px-2 sm:px-0 pt-6 sm:pt-0">
+        <!-- Eyebrow: pinned to top on mobile (in-flow, so it won't sit under the header) -->
+        <div class="flex justify-center sm:justify-start">
+          <div class="inline-flex items-center gap-2 rounded-full text-brand-accent border border-brand-secondary px-3 py-0.5 sm:px-6 sm:py-1" style="background-color: rgba(222, 173, 121, 0.2);">
+            <span class="text-[12px] sm:text-sm md:text-base font-light">{{ home.hero.eyebrow }}</span>
+          </div>
         </div>
 
-         <h1 class="t-hero-title leading-[0.7] text-center sm:text-left">
-            <span class="text-white  text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-wide">{{ home.hero.prefix }}</span><br>
-            <span class="text-brand-secondary text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide">{{ site.brand.name }}</span>
+        <!-- Main content: vertically centered inside the remaining space -->
+        <div class="flex-1 flex flex-col items-center justify-center sm:items-start space-y-4">
+
+          <h1 class="t-hero-title leading-none sm:leading-[0.7]">
+            <span class="block text-white text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold tracking-wide leading-none">
+              {{ home.hero.prefix }}
+            </span>
+            <span class="block mt-1 sm:mt-0 text-brand-secondary text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold tracking-wide leading-none">
+              {{ site.brand.name }}
+            </span>
           </h1>
 
-        <p class="t-hero-subtitle text-sm md:text-base max-w-xl text-center sm:text-left">
-          {{ site.seo.defaultDescription }}
-        </p>
+          <p class="t-hero-subtitle text-xs md:text-base max-w-xl">
+            {{ site.seo.defaultDescription }}
+          </p>
 
-        <div class="card-dark p-4 hidden lg:block">
+        <div class="card-dark p-4 hidden lg:block w-full">
           <div class="grid gap-2 text-lg md:text-sm text-brand-accent">
             {% for item in home.hero.contactItems %}
               {% if item.isLink %}
@@ -40,17 +50,18 @@
           </div>
         </div>
 
-      <div class="w-full max-w-xl">
-          <a href="{{ home.hero.ctaUrl | url }}" class="btn-brand w-full">
-            {{ home.hero.ctaLabel }}
-          </a>
+          <div class="w-full max-w-xl flex justify-center sm:justify-start">
+            <a href="{{ home.hero.ctaUrl | url }}" class="btn-brand w-auto text-xs px-3 py-1.5 rounded-lg sm:w-full sm:text-base sm:px-4 sm:py-2 sm:rounded-xl">
+              {{ home.hero.ctaLabel }}
+            </a>
+          </div>
         </div>
       </div>
 
       {# Image container - desktop 50% width #}
-      <div class="border-2 border-blue-500 hero-image w-full h-[40%] sm:h-auto sm:w-1/2 flex flex-col justify-end items-center relative">
-        <div class="hero-image-container w-full h-full flex items-end justify-center overflow-hidden relative sm:items-center sm:justify-center lg:mt-[20%]">
-          <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class="border-2 border-green-500 h-full w-auto object-contain object-bottom">
+      <div class=" hero-image w-full h-[50%] sm:h-auto sm:w-1/2 flex flex-col justify-end items-center relative">
+        <div class="hero-image-container w-full h-full flex items-end justify-center overflow-hidden relative sm:items-center sm:justify-center lg:mt-[25%]">
+          <img src="{{ '/assets/images/hero-img.png' | url }}" alt="{{ home.hero.portrait.alt | default(site.brand.name) }}" class=" h-full w-auto object-contain object-bottom">
         </div>
       </div>
     </div>
