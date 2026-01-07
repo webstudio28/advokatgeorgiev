@@ -50,11 +50,15 @@ module.exports = function() {
       // Extract filename from path for display
       const filename = path.basename(doc.path);
       
+      // Extract year from filename (look for 4-digit year)
+      const yearMatch = filename.match(/(\d{4})/);
+      const yearFromFilename = yearMatch ? parseInt(yearMatch[1]) : null;
+      
       aktualnaPdfs.push({
         filename: filename,
         url: `/assets/${doc.path}`,
         name: doc.title || filename.replace('.pdf', '').replace(/-/g, ' '),
-        year: doc.year,
+        year: yearFromFilename, // Use year from filename, not from JSON
         month: doc.month
       });
     }
