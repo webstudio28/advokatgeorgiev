@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Адвокат Божидар Георгиев - Професионална правна помощ",
   "scripts": {
+    "postinstall": "node scripts/copy-pdfjs.js",
     "start": "eleventy --serve",
     "build": "eleventy",
     "css:build": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/assets/css/styles.css --minify",
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "dotenv": "^17.2.3",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "pdfjs-dist": "^5.4.530"
   }
 }
