@@ -17,44 +17,43 @@
         <h2 class="text-2xl md:text-3xl font-bold text-neutral-100 mb-2">Направете запитване</h2>
         <p class="text-sm text-neutral-400 mb-6">Попълнете формата и ще се свържа с вас при първа възможност.</p>
 
-        {% if mailKey %}
-          <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+          {% if mailKey %}
             <input type="hidden" name="access_key" value="{{ mailKey }}">
-            <input type="hidden" name="subject" value="Ново запитване от сайта">
-            <input type="hidden" name="redirect" value="{{ '/blagodarya/' | url }}">
-            <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+          {% endif %}
+          <input type="hidden" name="subject" value="Ново запитване от сайта">
+          <input type="hidden" name="redirect" value="{{ '/blagodarya/' | url }}">
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
 
-            <div>
-              <label for="modal-name" class="block text-xs text-neutral-400 mb-2">Пълно име</label>
-              <input id="modal-name" name="name" type="text" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" placeholder="Вашето пълно име" required>
-            </div>
-
-            <div>
-              <label for="modal-phone" class="block text-xs text-neutral-400 mb-2">Телефон</label>
-              <input id="modal-phone" name="phone" type="tel" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" placeholder="Вашият телефон" required>
-            </div>
-
-            <div>
-              <label for="modal-email" class="block text-xs text-neutral-400 mb-2">Имейл</label>
-              <input id="modal-email" name="email" type="email" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" placeholder="Вашият имейл" required>
-            </div>
-
-            <div>
-              <label for="modal-message" class="block text-xs text-neutral-400 mb-2">Вашето запитване</label>
-              <textarea id="modal-message" name="message" rows="5" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30 resize-none" placeholder="Опишете вашето запитване..." required></textarea>
-            </div>
-
-            <div class="pt-2">
-              <button type="submit" class="btn-brand w-full">
-                Изпрати запитване
-              </button>
-            </div>
-          </form>
-        {% else %}
-          <div class="text-neutral-400 text-sm">
-            Формата не е конфигурирана. Моля, свържете се с администратора.
+          <div>
+            <label for="modal-name" class="block text-xs text-neutral-400 mb-2">Пълно име</label>
+            <input id="modal-name" name="name" type="text" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" placeholder="Вашето пълно име" required>
           </div>
-        {% endif %}
+
+          <div>
+            <label for="modal-phone" class="block text-xs text-neutral-400 mb-2">Телефон</label>
+            <input id="modal-phone" name="phone" type="tel" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" placeholder="Вашият телефон" required>
+          </div>
+
+          <div>
+            <label for="modal-email" class="block text-xs text-neutral-400 mb-2">Имейл</label>
+            <input id="modal-email" name="email" type="email" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" placeholder="Вашият имейл" required>
+          </div>
+
+          <div>
+            <label for="modal-message" class="block text-xs text-neutral-400 mb-2">Вашето запитване</label>
+            <textarea id="modal-message" name="message" rows="5" class="w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30 resize-none" placeholder="Опишете вашето запитване..." required></textarea>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="btn-brand w-full" >
+              Изпрати запитване
+            </button>
+          </div>
+          {% if not mailKey %}
+            <p class="text-xs text-neutral-400 mt-2">* Формата ще бъде активна след добавяне на API ключ</p>
+          {% endif %}
+        </form>
       </div>
     </div>
   </div>

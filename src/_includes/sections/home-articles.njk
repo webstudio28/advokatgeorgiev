@@ -8,11 +8,11 @@
     <div class="mt-8 overflow-x-auto lg:overflow-x-visible scrollbar-hide lg:grid lg:grid-cols-3 lg:gap-4">
       <div class="flex gap-4 lg:contents">
         {% for item in statiiList %}
-          <a href="{{ ('/statii/' ~ item.slug ~ '/') | url }}" class="group flex flex-col rounded-2xl border border-white/20 bg-neutral-900/35 overflow-hidden shadow-[0px_4px_18px_0px_rgba(0,0,0,0.35)] hover:bg-neutral-900/45 transition min-w-[240px] sm:min-w-[280px] lg:min-w-0">
+          <a href="{{ ('/statii/' ~ item.slug ~ '/') | url }}" class="group flex flex-col rounded-2xl border border-white/20 bg-neutral-900/35 overflow-hidden shadow-[0px_4px_18px_0px_rgba(0,0,0,0.35)] hover:bg-neutral-900/45 transition min-w-[280px] sm:min-w-[280px] lg:min-w-0">
             <div class="aspect-[16/9] w-full overflow-hidden bg-neutral-900">
               <img src="{{ item.hero.image | url }}" alt="{{ item.title }}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition">
             </div>
-            <div class="p-5 flex flex-col flex-1">
+            <div class="p-3 flex flex-col flex-1">
               <div class="text-base font-semibold text-neutral-100">
                 {{ item.title }}
               </div>

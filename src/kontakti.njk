@@ -103,40 +103,39 @@ description: Свържете се с адвокат Божидар Георги
       <div class="text-sm font-semibold text-neutral-100">Форма за контакт</div>
       <p class="mt-2 text-sm text-neutral-400">Изпратете запитване и ще се свържа с вас при първа възможност.</p>
 
-      {% if mailKey %}
-        <form action="https://api.web3forms.com/submit" method="POST" class="mt-6 space-y-4">
+      <form action="https://api.web3forms.com/submit" method="POST" class="mt-6 space-y-4">
+        {% if mailKey %}
           <input type="hidden" name="access_key" value="{{ mailKey }}">
-          <input type="hidden" name="subject" value="Ново запитване от сайта">
-          <input type="hidden" name="redirect" value="{{ '/blagodarya/' | url }}">
-          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
+        {% endif %}
+        <input type="hidden" name="subject" value="Ново запитване от сайта">
+        <input type="hidden" name="redirect" value="{{ '/blagodarya/' | url }}">
+        <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
 
-          <div class="grid gap-4 md:grid-cols-2">
-            <div>
-              <label for="contact-name" class="text-xs text-neutral-400">Име и фамилия</label>
-              <input id="contact-name" name="name" type="text" class="mt-2 w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" required>
-            </div>
-            <div>
-              <label for="contact-email" class="text-xs text-neutral-400">Имейл</label>
-              <input id="contact-email" name="email" type="email" class="mt-2 w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" required>
-            </div>
-          </div>
-
+        <div class="grid gap-4 md:grid-cols-2">
           <div>
-            <label for="contact-message" class="text-xs text-neutral-400">Вашето запитване</label>
-            <textarea id="contact-message" name="message" rows="7" class="mt-2 w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30 resize-none" required></textarea>
+            <label for="contact-name" class="text-xs text-neutral-400">Име и фамилия</label>
+            <input id="contact-name" name="name" type="text" class="mt-2 w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" required>
           </div>
-
-          <div class="pt-2">
-            <button type="submit" class="btn-brand w-full md:w-auto">
-              Изпрати
-            </button>
+          <div>
+            <label for="contact-email" class="text-xs text-neutral-400">Имейл</label>
+            <input id="contact-email" name="email" type="email" class="mt-2 w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30" required>
           </div>
-        </form>
-      {% else %}
-        <div class="mt-6 rounded-xl border border-white/10 bg-neutral-950/40 p-4 text-sm text-neutral-300">
-          Формата е временно недостъпна (липсва конфигурация). Моля, използвайте телефон или имейл.
         </div>
-      {% endif %}
+
+        <div>
+          <label for="contact-message" class="text-xs text-neutral-400">Вашето запитване</label>
+          <textarea id="contact-message" name="message" rows="7" class="mt-2 w-full rounded-xl border border-white/10 bg-neutral-950/40 px-4 py-3 text-neutral-100 placeholder:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-brand-secondary/30 resize-none" required></textarea>
+        </div>
+
+        <div class="pt-2">
+          <button type="submit" class="btn-brand w-full md:w-auto" {% if not mailKey %}disabled{% endif %}>
+            Изпрати
+          </button>
+        </div>
+        {% if not mailKey %}
+          <p class="text-xs text-neutral-400 mt-2">* Формата ще бъде активна след добавяне на API ключ</p>
+        {% endif %}
+      </form>
     </div>
   </div>
 </section>
