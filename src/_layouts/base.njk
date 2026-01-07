@@ -194,8 +194,13 @@
                                                 <ul class="py-2">
                                                     {% for practice in sadebnaPraktika %}
                                                         <li>
-                                                            <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block px-4 py-3 text-brand-accent hover:bg-white/5 hover:text-white transition">
-                                                                {{ practice.title }}
+                                                            <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block px-4 py-3 text-brand-accent hover:bg-white/5 hover:text-white transition flex items-center gap-2">
+                                                                {% if practice.slug == 'aktualna-praktika' %}
+                                                                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                                    </svg>
+                                                                {% endif %}
+                                                                <span>{{ practice.title }}</span>
                                                             </a>
                                                         </li>
                                                     {% endfor %}
@@ -258,8 +263,13 @@
                                                 Всички случаи
                                             </a>
                                             {% for practice in sadebnaPraktika %}
-                                                <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm">
-                                                    {{ practice.title }}
+                                                <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="block text-brand-accent rounded-lg border border-white/10 bg-neutral-900/40 px-4 py-2 hover:bg-neutral-900/60 transition text-sm flex items-center gap-2">
+                                                    {% if practice.slug == 'aktualna-praktika' %}
+                                                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                        </svg>
+                                                    {% endif %}
+                                                    <span>{{ practice.title }}</span>
                                                 </a>
                                             {% endfor %}
                                         {% endif %}
@@ -336,8 +346,13 @@
                                         {% endfor %}
                                     {% elif col.title == "Съдебна практика" %}
                                         {% for practice in sadebnaPraktika %}
-                                            <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="hover:text-neutral-200 transition">
-                                                {{ practice.title }}
+                                            <a href="{{ ('/sadebna-praktika/' ~ practice.slug ~ '/') | url }}" class="hover:text-neutral-200 transition flex items-center gap-2">
+                                                {% if practice.slug == 'aktualna-praktika' %}
+                                                    <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                    </svg>
+                                                {% endif %}
+                                                <span>{{ practice.title }}</span>
                                             </a>
                                         {% endfor %}
                                     {% elif col.links %}
