@@ -50,6 +50,6 @@ jobs:
           username: ${{ secrets.CPANEL_USER }}
           password: ${{ secrets.CPANEL_PASS }}
           local-dir: _site/
-          # Avoid spaces in folder names on FTP. Prefer: advokat-georgiev
-          server-dir: ${{ secrets.CPANEL_SERVER_DIR || 'advokat-georgiev/' }}
+          # Deploy to advokatgeorgiev/ folder (sibling to public_html/)
+          server-dir: ${{ secrets.CPANEL_SERVER_DIR || 'advokatgeorgiev/' }}
           dangerous-clean-slate: true
