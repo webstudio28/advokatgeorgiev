@@ -37,9 +37,19 @@ jobs:
       - name: Deploy to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
+          # NOTE: This action supports FTP/FTPS (NOT SFTP).
+          # If your host is SFTP-only, this workflow will never work; use an SSH/SCP deploy action instead.
+          #
+          # Optional secrets you can set:
+          # - CPANEL_PROTOCOL: ftp | ftps   (many cPanel hosts require ftps)
+          # - CPANEL_PORT: 21 (ftp/ftps) or custom
+          # - CPANEL_SERVER_DIR: e.g. public_html/advokat-georgiev/
+          protocol: ${{ secrets.CPANEL_PROTOCOL || 'ftp' }}
+          port: ${{ secrets.CPANEL_PORT || 21 }}
           server: ${{ secrets.CPANEL_HOST }} 
           username: ${{ secrets.CPANEL_USER }}
           password: ${{ secrets.CPANEL_PASS }}
           local-dir: _site/
-          server-dir: public_html/
+          # Avoid spaces in folder names on FTP. Prefer: advokat-georgiev
+          server-dir: ${{ secrets.CPANEL_SERVER_DIR || 'advokat-georgiev/' }}
           dangerous-clean-slate: true
