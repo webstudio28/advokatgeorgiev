@@ -47,6 +47,23 @@
         <link rel="stylesheet" href="{{ '/assets/css/custom-styles.css' | url }}">
         <link rel="stylesheet" href="{{ '/assets/css/home.css' | url }}">
 
+        {# LCP preload (home page only) #}
+        {% if page.url == "/" %}
+          <link
+            rel="preload"
+            as="image"
+            href="{{ '/assets/images/hero-bg-w1024.jpg' | url }}"
+            imagesrcset="
+              {{ '/assets/images/hero-bg-w640.jpg' | url }} 640w,
+              {{ '/assets/images/hero-bg-w1024.jpg' | url }} 1024w,
+              {{ '/assets/images/hero-bg-w1600.jpg' | url }} 1600w,
+              {{ '/assets/images/hero-bg-w1920.jpg' | url }} 1920w
+            "
+            imagesizes="100vw"
+            fetchpriority="high"
+          >
+        {% endif %}
+
         <!-- Open Graph meta tags -->
         <meta property="og:title" content="{{ resolvedTitle }}"/>
         <meta property="og:description" content="{{ resolvedDescription }}"/>
