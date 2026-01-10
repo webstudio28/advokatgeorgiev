@@ -22,6 +22,11 @@ permalink: /za-men/
               <div class="absolute inset-0 bg-gradient-to-br from-black/50 via-[#0a0e1a]/40 to-black/50 rounded-2xl"></div>
               <img 
                 src="{{ '/assets/images/about-me-optimized.png' | url }}" 
+                srcset="
+                  {{ '/assets/images/about-me-optimized-w350.png' | url }} 350w,
+                  {{ '/assets/images/about-me-optimized-w700.png' | url }} 700w
+                "
+                sizes="(min-width: 768px) 35vw, 90vw"
                 alt="Адвокат Божидар Георгиев" 
                 class="w-full h-auto object-cover relative z-10"
               >

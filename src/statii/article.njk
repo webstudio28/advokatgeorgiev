@@ -34,7 +34,19 @@ bodyStyle: "background: #F7F5F2;"
 
         {% if article.hero.image %}
           <div class="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-neutral-200 mb-8">
-            <img src="{{ article.hero.image | url }}" alt="{{ article.title }}" class="w-full h-full object-cover">
+            {% set img = article.hero.image %}
+            <img
+              src="{{ img | url }}"
+              srcset="
+                {{ img | replace('.jpg', '-w480.jpg') | url }} 480w,
+                {{ img | replace('.jpg', '-w768.jpg') | url }} 768w,
+                {{ img | replace('.jpg', '-w1024.jpg') | url }} 1024w,
+                {{ img | replace('.jpg', '-w1400.jpg') | url }} 1400w
+              "
+              sizes="(min-width: 1024px) 900px, 100vw"
+              alt="{{ article.title }}"
+              class="w-full h-full object-cover"
+            >
           </div>
         {% endif %}
 
