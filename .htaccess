@@ -25,3 +25,62 @@ DirectoryIndex index.html
   # Header always set Cross-Origin-Embedder-Policy "require-corp"
   Header always set Cross-Origin-Resource-Policy "same-origin"
 </IfModule>
+
+# ---------------------------------------------------------
+# Caching (performance)
+# ---------------------------------------------------------
+# Goal:
+# - HTML: no cache (so updates show immediately)
+# - CSS/JS: 7 days
+# - Images/Fonts: 1 year (best with versioned filenames)
+
+<IfModule mod_headers.c>
+  # HTML documents
+  <FilesMatch "\.(?:html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+
+  # CSS/JS (shorter cache unless fingerprinted)
+  <FilesMatch "\.(?:css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+
+  # Images (long cache)
+  <FilesMatch "\.(?:jpg|jpeg|png|gif|webp|avif|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Fonts (long cache)
+  <FilesMatch "\.(?:woff2|woff|ttf|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # CSS/JS
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType text/javascript "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+
+  # Images
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fonts
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+</IfModule>
