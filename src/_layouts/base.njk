@@ -4,7 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {# Nunjucks uses: a if condition else b (NOT JS ternary condition ? a : b) #}
-        {% set resolvedTitle = metaTitle or ((title ~ (site.seo.titleSeparator | default(' | ')) ~ site.brand.name) if title else site.seo.defaultTitle) %}
+        {# Use a dedicated SEO title suffix so we don't affect header/footer brand name #}
+        {% set titleSeparator = site.seo.titleSeparator | default(' | ') %}
+        {% set titleSuffix = site.seo.titleSuffix or site.brand.name %}
+
+        {# Normalize any legacy suffixes inside already-composed titles #}
+        {% set normalizedTitle = title %}
+        {% if normalizedTitle %}
+          {% set normalizedTitle = normalizedTitle
+            | replace(titleSeparator ~ 'Адвокат Божидар Георгиев', titleSeparator ~ titleSuffix)
+            | replace(titleSeparator ~ site.brand.name, titleSeparator ~ titleSuffix)
+          %}
+        {% endif %}
+
+        {% set normalizedMetaTitle = metaTitle %}
+        {% if normalizedMetaTitle %}
+          {% set normalizedMetaTitle = normalizedMetaTitle
+            | replace(titleSeparator ~ 'Адвокат Божидар Георгиев', titleSeparator ~ titleSuffix)
+            | replace(titleSeparator ~ site.brand.name, titleSeparator ~ titleSuffix)
+          %}
+        {% endif %}
+
+        {# If a page passes a "full" title (already contains the separator), don't append again #}
+        {% set resolvedTitle = normalizedMetaTitle
+          or ((normalizedTitle) if (normalizedTitle and (titleSeparator in normalizedTitle))
+              else ((normalizedTitle ~ titleSeparator ~ titleSuffix) if normalizedTitle else site.seo.defaultTitle))
+        %}
         {% set resolvedDescription = metaDescription or description or site.seo.defaultDescription %}
 
         <title>{{ resolvedTitle }}</title>

@@ -17,6 +17,7 @@
     "siteUrl": "https://www.georgiev.com",
     "defaultTitle": "Адвокат Божидар Георгиев",
     "titleSeparator": " | ",
+    "titleSuffix": "Адвокат Георгиев",
     "defaultDescription": "Специализиран адвокат в сферата на застрахователното право с доказан опит в защитата на вашите интереси.",
     "og": {
       "type": "website",
