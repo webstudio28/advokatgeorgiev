@@ -8,7 +8,7 @@ module.exports = function(eleventyConfig) {
   // Copy static assets
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   // Root favicon logo (lives in src/logo.png so it outputs to /logo.png)
-  eleventyConfig.addPassthroughCopy({ "src/logo.png": "logo.png" });
+  eleventyConfig.addPassthroughCopy({ "logo.png": "logo.png" });
   // Copy logo.png as favicon.ico for browsers that auto-check /favicon.ico
   eleventyConfig.addPassthroughCopy({ "src/logo.png": "favicon.ico" });
   eleventyConfig.addPassthroughCopy(".htaccess");
