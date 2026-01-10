@@ -67,77 +67,7 @@
         <!-- <meta name="twitter:image" content="{{ site.seo.siteUrl }}{{ '/assets/images/socials-square.png' | url }}"/> -->
         
         
-        <script>
-            // Mobile menu toggle (simple)
-            document.addEventListener('DOMContentLoaded', function () {
-                const toggle = document.getElementById('mobile-menu-toggle');
-                const menu = document.getElementById('mobile-menu');
-
-                const open = () => {
-                    if (!menu) return;
-                    menu.classList.remove('opacity-0', 'pointer-events-none');
-                    if (toggle) toggle.classList.add('menu-open');
-                };
-
-                const close = () => {
-                    if (!menu) return;
-                    menu.classList.add('opacity-0', 'pointer-events-none');
-                    if (toggle) toggle.classList.remove('menu-open');
-                };
-
-                if (toggle && menu) {
-                    toggle.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        if (menu.classList.contains('pointer-events-none')) {
-                            open();
-                        } else {
-                            close();
-                        }
-                    });
-                }
-
-                // Close when clicking outside the menu or on a navigation link
-                document.addEventListener('click', (e) => {
-                    if (menu && !menu.contains(e.target) && toggle && !toggle.contains(e.target) && !menu.classList.contains('pointer-events-none')) {
-                        close();
-                    }
-                });
-
-                // Close when clicking on navigation links
-                if (menu) {
-                    const navLinks = menu.querySelectorAll('a');
-                    navLinks.forEach(link => {
-                        link.addEventListener('click', () => {
-                            close();
-                        });
-                    });
-                }
-
-                // Close on ESC
-                window.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape') close();
-                });
-
-                // Mobile dropdown toggles
-                const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
-                dropdownToggles.forEach(toggle => {
-                    toggle.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const dropdown = this.closest('.mobile-dropdown');
-                        const content = dropdown.querySelector('.mobile-dropdown-content');
-                        const icon = this.querySelector('svg');
-                        
-                        if (content.classList.contains('hidden')) {
-                            content.classList.remove('hidden');
-                            icon.style.transform = 'rotate(180deg)';
-                        } else {
-                            content.classList.add('hidden');
-                            icon.style.transform = 'rotate(0deg)';
-                        }
-                    });
-                });
-            });
-        </script>
+        
 
         {# <script src="https://cdn.tailwindcss.com"></script> #}
 
@@ -396,6 +326,78 @@
                     &copy; {{ site.currentYear }} {{ site.brand.name }}. Всички права запазени.
                 </div>
             </div>
+
+            <script>
+            // Mobile menu toggle (simple)
+            document.addEventListener('DOMContentLoaded', function () {
+                const toggle = document.getElementById('mobile-menu-toggle');
+                const menu = document.getElementById('mobile-menu');
+
+                const open = () => {
+                    if (!menu) return;
+                    menu.classList.remove('opacity-0', 'pointer-events-none');
+                    if (toggle) toggle.classList.add('menu-open');
+                };
+
+                const close = () => {
+                    if (!menu) return;
+                    menu.classList.add('opacity-0', 'pointer-events-none');
+                    if (toggle) toggle.classList.remove('menu-open');
+                };
+
+                if (toggle && menu) {
+                    toggle.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (menu.classList.contains('pointer-events-none')) {
+                            open();
+                        } else {
+                            close();
+                        }
+                    });
+                }
+
+                // Close when clicking outside the menu or on a navigation link
+                document.addEventListener('click', (e) => {
+                    if (menu && !menu.contains(e.target) && toggle && !toggle.contains(e.target) && !menu.classList.contains('pointer-events-none')) {
+                        close();
+                    }
+                });
+
+                // Close when clicking on navigation links
+                if (menu) {
+                    const navLinks = menu.querySelectorAll('a');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            close();
+                        });
+                    });
+                }
+
+                // Close on ESC
+                window.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') close();
+                });
+
+                // Mobile dropdown toggles
+                const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+                dropdownToggles.forEach(toggle => {
+                    toggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const dropdown = this.closest('.mobile-dropdown');
+                        const content = dropdown.querySelector('.mobile-dropdown-content');
+                        const icon = this.querySelector('svg');
+                        
+                        if (content.classList.contains('hidden')) {
+                            content.classList.remove('hidden');
+                            icon.style.transform = 'rotate(180deg)';
+                        } else {
+                            content.classList.add('hidden');
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                });
+            });
+        </script>
         </footer>
 
         
