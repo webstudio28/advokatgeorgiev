@@ -94,15 +94,26 @@ eleventyComputed:
             // --- PDF.js inline rendering (reliable on mobile) ---
             // We self-host PDF.js in /assets/vendor/pdfjs/ via scripts/copy-pdfjs.js
             let pdfjsReadyPromise = null;
+            const LOCAL_PDFJS = '{{ "/assets/vendor/pdfjs/pdf.min.mjs" | url }}';
+            const LOCAL_WORKER = '{{ "/assets/vendor/pdfjs/pdf.worker.min.mjs" | url }}';
+            const CDN_PDFJS = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.min.mjs';
+            const CDN_WORKER = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.worker.min.mjs';
 
             async function ensurePdfjs() {
               if (pdfjsReadyPromise) return pdfjsReadyPromise;
               pdfjsReadyPromise = (async () => {
-                // Load pdf.js runtime module
-                const pdfjsLib = await import('{{ "/assets/vendor/pdfjs/pdf.min.mjs" | url }}');
-                // Set worker path
-                pdfjsLib.GlobalWorkerOptions.workerSrc = '{{ "/assets/vendor/pdfjs/pdf.worker.min.mjs" | url }}';
-                return pdfjsLib;
+                // Some shared hosting setups don't serve .mjs with a JS MIME type.
+                // Try local first, then fall back to CDN (more reliable on cPanel).
+                try {
+                  const pdfjsLib = await import(LOCAL_PDFJS);
+                  // Prefer CDN worker to avoid MIME issues with local .mjs workers
+                  pdfjsLib.GlobalWorkerOptions.workerSrc = CDN_WORKER;
+                  return pdfjsLib;
+                } catch (e) {
+                  const pdfjsLib = await import(CDN_PDFJS);
+                  pdfjsLib.GlobalWorkerOptions.workerSrc = CDN_WORKER;
+                  return pdfjsLib;
+                }
               })();
               return pdfjsReadyPromise;
             }
@@ -272,13 +283,23 @@ eleventyComputed:
           document.addEventListener('DOMContentLoaded', function() {
             // --- PDF.js inline rendering (reliable on mobile) ---
             let pdfjsReadyPromise = null;
+            const LOCAL_PDFJS = '{{ "/assets/vendor/pdfjs/pdf.min.mjs" | url }}';
+            const LOCAL_WORKER = '{{ "/assets/vendor/pdfjs/pdf.worker.min.mjs" | url }}';
+            const CDN_PDFJS = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.min.mjs';
+            const CDN_WORKER = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@5.4.530/build/pdf.worker.min.mjs';
 
             async function ensurePdfjs() {
               if (pdfjsReadyPromise) return pdfjsReadyPromise;
               pdfjsReadyPromise = (async () => {
-                const pdfjsLib = await import('{{ "/assets/vendor/pdfjs/pdf.min.mjs" | url }}');
-                pdfjsLib.GlobalWorkerOptions.workerSrc = '{{ "/assets/vendor/pdfjs/pdf.worker.min.mjs" | url }}';
-                return pdfjsLib;
+                try {
+                  const pdfjsLib = await import(LOCAL_PDFJS);
+                  pdfjsLib.GlobalWorkerOptions.workerSrc = CDN_WORKER;
+                  return pdfjsLib;
+                } catch (e) {
+                  const pdfjsLib = await import(CDN_PDFJS);
+                  pdfjsLib.GlobalWorkerOptions.workerSrc = CDN_WORKER;
+                  return pdfjsLib;
+                }
               })();
               return pdfjsReadyPromise;
             }
