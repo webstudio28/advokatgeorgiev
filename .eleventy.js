@@ -49,10 +49,19 @@ module.exports = function(eleventyConfig) {
       year: "numeric"
     }).format(d);
   });
+
+  // Filter to format dates as ISO YYYY-MM-DD (useful for sitemap.xml)
+  eleventyConfig.addFilter("isoDate", function(value) {
+    if (!value) return "";
+    const d = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toISOString().slice(0, 10);
+  });
  
   // Expose env vars if needed in templates (keep debug optional)
   if (process.env.MAIL_KEY) {
-    console.log("Loaded API key:", process.env.MAIL_KEY);
+    // IMPORTANT: never log secrets in CI
+    console.log("MAIL_KEY loaded (value hidden).");
   }
   eleventyConfig.addGlobalData("mailKey", process.env.MAIL_KEY || "");
  

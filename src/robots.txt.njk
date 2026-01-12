@@ -1,0 +1,13 @@
+---
+permalink: "/robots.txt"
+eleventyExcludeFromCollections: true
+---
+User-agent: *
+Allow: /
+
+# Avoid indexing duplicate/internal content paths
+Disallow: /_content/
+
+Sitemap: {{ site.seo.siteUrl }}{{ "/sitemap.xml" | url }}
+
+

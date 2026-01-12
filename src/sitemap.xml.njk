@@ -1,0 +1,48 @@
+---
+permalink: "/sitemap.xml"
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% set base = (site.seo.siteUrl | trim) %}
+
+  {% macro entry(path, lastmodValue) %}
+  <url>
+    <loc>{{ base }}{{ path | url }}</loc>
+    {% if lastmodValue %}
+    <lastmod>{{ lastmodValue | isoDate }}</lastmod>
+    {% endif %}
+  </url>
+  {% endmacro %}
+
+  {# Core navigation pages #}
+  {% for nav in site.navigation %}
+  {{ entry(nav.url) }}
+  {% endfor %}
+
+  {# Thank-you page (used after contact/inquiry) #}
+  {{ entry('/blagodarya/') }}
+
+  {# Services (uslugi) pages #}
+  {% if uslugi and uslugi.items %}
+  {% for s in uslugi.items %}
+  {{ entry('/uslugi/' ~ s.slug ~ '/') }}
+  {% endfor %}
+  {% endif %}
+
+  {# Court practice (sadebna praktika) pages #}
+  {% if sadebnaPraktika %}
+  {% for c in sadebnaPraktika %}
+  {{ entry('/sadebna-praktika/' ~ c.slug ~ '/') }}
+  {% endfor %}
+  {% endif %}
+
+  {# Articles (statii) pages #}
+  {% if statiiList %}
+  {% for a in statiiList %}
+  {{ entry('/statii/' ~ a.slug ~ '/', a.date) }}
+  {% endfor %}
+  {% endif %}
+</urlset>
+
+

@@ -104,11 +104,9 @@ description: Свържете се с адвокат Божидар Георги
       <p class="mt-2 text-sm text-neutral-400">Изпратете запитване и ще се свържа с вас при първа възможност.</p>
 
       <form action="https://api.web3forms.com/submit" method="POST" class="mt-6 space-y-4">
-        {% if mailKey %}
-          <input type="hidden" name="access_key" value="{{ mailKey }}">
-        {% endif %}
+        <input type="hidden" name="access_key" value="6c7ebb43-269b-4290-8fa5-c5d9aa83aacb">
         <input type="hidden" name="subject" value="Ново запитване от сайта">
-        <input type="hidden" name="redirect" value="{{ '/blagodarya/' | url }}">
+        <input type="hidden" name="redirect" value="https://advokatgeorgiev.com/blagodarya/">
         <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
 
         <div class="grid gap-4 md:grid-cols-2">
@@ -128,13 +126,10 @@ description: Свържете се с адвокат Божидар Георги
         </div>
 
         <div class="pt-2">
-          <button type="submit" class="btn-brand w-full md:w-auto" {% if not mailKey %}disabled{% endif %}>
+          <button type="submit" class="btn-brand w-full md:w-auto">
             Изпрати
           </button>
         </div>
-        {% if not mailKey %}
-          <p class="text-xs text-neutral-400 mt-2">* Формата ще бъде активна след добавяне на API ключ</p>
-        {% endif %}
       </form>
     </div>
   </div>
