@@ -11,13 +11,14 @@ jobs:
     environment: Deploy
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build CSS
         run: npm run css:build
       - name: Build
@@ -57,4 +58,5 @@ jobs:
           local-dir: _site/
           # Deploy to advokatgeorgiev/ folder (sibling to public_html/)
           server-dir: ${{ secrets.CPANEL_SERVER_DIR || 'advokatgeorgiev/' }}
-          dangerous-clean-slate: true
+          # IMPORTANT: keep incremental sync state so deploy uploads only changed files (much faster)
+          dangerous-clean-slate: false
