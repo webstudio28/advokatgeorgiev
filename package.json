@@ -4,11 +4,12 @@
   "description": "Адвокат Божидар Георгиев - Професионална правна помощ",
   "scripts": {
     "postinstall": "node scripts/copy-pdfjs.js",
-    "start": "eleventy --serve",
+    "serve": "eleventy --serve",
+    "start": "npm-run-all --parallel css:watch serve",
     "build": "eleventy",
     "css:build": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/assets/css/styles.css --minify",
     "css:watch": "tailwindcss -i ./src/assets/css/tailwind.css -o ./_site/assets/css/styles.css --watch",
-    "dev": "npm-run-all --parallel css:watch start",
+    "dev": "npm start",
     "deploy": "echo 'Use GitHub Actions instead'"
   },
   "keywords": [
